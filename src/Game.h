@@ -9,6 +9,7 @@
 #define GAME_H_
 
 #include <SDL2/SDL.h>
+#include "Player.h"
 
 class Game {
 public:
@@ -28,7 +29,10 @@ public:
 private:
 
 	bool running;
+	int cnt;
+	Player* survivor;
 	SDL_Window* window;
+	SDL_Texture* backgroundTex;
 	SDL_Renderer* renderer;
 };
 

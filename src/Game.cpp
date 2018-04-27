@@ -7,16 +7,19 @@
 
 #include "Game.h"
 #include "Player.h"
+#include "textureManager.h"
 #include <iostream>
 
-Player* fighter= new Player;
 
 
 Game::Game() {
 	// TODO Auto-generated constructor stub
 	window = NULL;
 	renderer = NULL;
+	backgroundTex = NULL;
+	survivor = new Player;
 	running = false;
+	cnt =0;
 
 }
 
@@ -45,13 +48,8 @@ void Game::init(const char* title, int xpos, int ypos,int width, int height, boo
 		}
 		running = true;
 	}
-	char* image = fighter->getImagePath();
-	std::cout<<"Image: "<<image<<std::endl;
-	SDL_Surface* tmpSurface = SDL_LoadBMP(image);
-	std::cout<<"asd: "<<tmpSurface<<std::endl;
-	fighter->playerTexture =SDL_CreateTextureFromSurface(renderer, tmpSurface);
-	SDL_FreeSurface(tmpSurface);
-
+	backgroundTex = textureManager::loadTexture("src/imagesPlaceHolder/background.bmp", renderer);
+	survivor->playerTexture=textureManager::loadTexture(survivor->getImagePath(), renderer);
 }
 
 void Game::handleEvents()
@@ -76,9 +74,12 @@ void Game::update()
 
 void Game::render()
 {
+	cnt++;
+	survivor->setXpos(cnt);
 	SDL_RenderClear(renderer);
-	SDL_Rect tmpRect = fighter->getDestRect();
-	SDL_RenderCopy(renderer, fighter->playerTexture,NULL,&tmpRect);
+	SDL_Rect tmpRect = survivor->getDestRect();
+	SDL_RenderCopy(renderer, backgroundTex,NULL,NULL);
+	SDL_RenderCopy(renderer, survivor->playerTexture,NULL,&tmpRect);
 
 	SDL_RenderPresent(renderer);
 

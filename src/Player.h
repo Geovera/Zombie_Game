@@ -18,6 +18,7 @@ public:
 	char* getImagePath(){return imagePath;}
 	SDL_Rect getSrcRect(){return srcR;}
 	SDL_Rect getDestRect(){return destR;}
+	void setXpos(int x){destR.x=x;}
 	SDL_Texture* playerTexture;
 
 private:

@@ -11,8 +11,10 @@ Player::Player(char* path) {
 	// TODO Auto-generated constructor stub
 	imagePath = path;
 	playerTexture=NULL;
-	destR.h=64;
-	destR.w=64;
+	destR.h=150;
+	destR.w=150;
+	destR.x=200;
+	destR.y=300;
 }
 
 Player::~Player() {
