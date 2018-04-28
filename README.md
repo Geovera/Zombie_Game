@@ -9,6 +9,8 @@ they are probably different.
 
 I have mostly the same code from the tutorial video on SDL2
 
+For terminal compilation use "g++ -std=c++11 **All the .cpp files**  -o a.out"
+
 
 
 
