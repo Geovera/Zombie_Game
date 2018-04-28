@@ -1,5 +1,5 @@
 /*
- * textureMagager.h
+ * textureManager.h
  *
  *  Created on: Apr 26, 2018
  *      Author: eliro
@@ -9,23 +9,15 @@
 #ifndef TEXTUREMANAGER_H_
 #define TEXTUREMANAGER_H_
 #include <SDL2/SDL.h>
+#include <SDL2/SDL_image.h>
+#include "Game.h"
 
 class textureManager {
 public:
 
-	static SDL_Texture* loadTexture(const char* path, SDL_Renderer* renderer);
+	static SDL_Texture* loadTexture(const char* path);
+	static void Draw(SDL_Texture* tex, SDL_Rect src, SDL_Rect dest);
 
 };
 
-
-SDL_Texture* textureManager::loadTexture(const char* path, SDL_Renderer* renderer)
-{
-
-	SDL_Surface* tmpSurface = SDL_LoadBMP(path);
-	SDL_Texture* tex = SDL_CreateTextureFromSurface(renderer, tmpSurface);
-	SDL_FreeSurface(tmpSurface);
-
-	return tex;
-}
-
-#endif /* TEXTUREMAGAGER_H_ */
+#endif /* TEXTUREMANAGER_H_ */

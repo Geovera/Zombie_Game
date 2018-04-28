@@ -1,6 +1,6 @@
 //============================================================================
 // Name        : videoGameProject.cpp
-// Author      : 
+// Author      :
 // Version     :
 // Copyright   : Your copyright notice
 // Description : Hello World in C++, Ansi-style
@@ -25,7 +25,8 @@ int main() {
 	int frameTime;
 	zombie = new Game;
 
-	zombie->init("Zombie Massacre", SDL_WINDOWPOS_CENTERED,SDL_WINDOWPOS_CENTERED, width, height,true);
+
+	zombie->init("Zombie Massacre", SDL_WINDOWPOS_CENTERED,SDL_WINDOWPOS_CENTERED, width, height, false);
 
 	while(zombie->isRunning())
 	{

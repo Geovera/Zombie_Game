@@ -6,18 +6,24 @@
  */
 
 #include "Game.h"
-#include "Player.h"
 #include "textureManager.h"
+#include "ECS/Components.h"
+//#include "ECS/KeyBoardController.h"
+#include "Vector2D.h"
 #include <iostream>
 
 
+SDL_Event Game::e;
+SDL_Renderer* Game::renderer =NULL;
+
+Manager manager;
+auto& Player(manager.addEntity());
 
 Game::Game() {
 	// TODO Auto-generated constructor stub
 	window = NULL;
 	renderer = NULL;
 	backgroundTex = NULL;
-	survivor = new Player;
 	running = false;
 	cnt =0;
 
@@ -48,13 +54,17 @@ void Game::init(const char* title, int xpos, int ypos,int width, int height, boo
 		}
 		running = true;
 	}
-	backgroundTex = textureManager::loadTexture("src/imagesPlaceHolder/background.bmp", renderer);
-	survivor->playerTexture=textureManager::loadTexture(survivor->getImagePath(), renderer);
+	mapa = new Map();
+	//Player = new GameObject("imagesPlaceHolder/IdlePlayer.png", 0, 0);
+
+	Player.addComponent<TransformComponent>(200.0f,200.0f);
+	Player.addComponent<SpriteComponent>("imagesPlaceHolder/AnotherPlayer.png");
+	Player.addComponent<KeyBoardController>();
 }
 
 void Game::handleEvents()
 {
-	SDL_Event e;
+
 	SDL_PollEvent(&e);
 	switch(e.type)
 	{
@@ -69,17 +79,18 @@ void Game::handleEvents()
 
 void Game::update()
 {
+	manager.refresh();
+	manager.update();
+
 
 }
 
 void Game::render()
 {
-	cnt++;
-	survivor->setXpos(cnt);
 	SDL_RenderClear(renderer);
-	SDL_Rect tmpRect = survivor->getDestRect();
-	SDL_RenderCopy(renderer, backgroundTex,NULL,NULL);
-	SDL_RenderCopy(renderer, survivor->playerTexture,NULL,&tmpRect);
+	//SDL_RenderCopy(renderer, backgroundTex,NULL,NULL);
+	mapa->DrawMap();
+	manager.draw();
 
 	SDL_RenderPresent(renderer);
 
@@ -93,4 +104,3 @@ void Game::clean()
 	SDL_Quit();
 	std::cout<<"Game clean"<<std::endl;
 }
-

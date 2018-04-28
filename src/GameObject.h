@@ -8,11 +8,12 @@
 #ifndef GAMEOBJECT_H_
 #define GAMEOBJECT_H_
 
+#include "Game.h"
 #include <SDL2/SDL.h>
 
 class GameObject {
 public:
-	GameObject(const char* textureSheet, SDL_Renderer* ren);
+	GameObject(const char* textureSheet, int x, int y);
 	virtual ~GameObject();
 
 	void Update();
@@ -24,8 +25,7 @@ private:
 	int yPos;
 
 	SDL_Texture* objTexture;
-	SDL_Renderer* renderer;
-	SDL_Rect srcRect, dstRect;
+	SDL_Rect srcRect, destRect;
 
 
 };

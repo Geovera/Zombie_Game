@@ -8,8 +8,11 @@
 #ifndef GAME_H_
 #define GAME_H_
 
+#include "Map.h"
 #include <SDL2/SDL.h>
-#include "Player.h"
+//#include <SDL2/SDL_image.h>
+
+class Map;
 
 class Game {
 public:
@@ -22,6 +25,9 @@ public:
 	void render();
 	void clean();
 
+	static SDL_Renderer* renderer;
+	static SDL_Event e;
+
 	bool isRunning(){return running;}
 
 
@@ -30,10 +36,10 @@ private:
 
 	bool running;
 	int cnt;
-	Player* survivor;
+
+	Map* mapa;
 	SDL_Window* window;
 	SDL_Texture* backgroundTex;
-	SDL_Renderer* renderer;
 };
 
 #endif /* GAME_H_ */
