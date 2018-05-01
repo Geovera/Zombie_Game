@@ -18,7 +18,6 @@ Game* zombie=NULL;
 
 int main() {
 
-	cout<<"hi"<<endl;
 	zombie = new Game;
 
 	zombie->init("Zombie Massacre", SDL_WINDOWPOS_CENTERED,SDL_WINDOWPOS_CENTERED, width, height,false);

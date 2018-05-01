@@ -7,9 +7,11 @@
 
 #include "Game.h"
 #include "Player.h"
+#include "Zombie.h"
 #include <iostream>
 
 Player* fighter= new Player;
+Zombie* zombieCharacter= new Zombie;
 
 
 Game::Game() {
@@ -46,11 +48,16 @@ void Game::init(const char* title, int xpos, int ypos,int width, int height, boo
 		running = true;
 	}
 	char* image = fighter->getImagePath();
+	char* zombieImage = zombieCharacter->getImagePath();
 	std::cout<<"Image: "<<image<<std::endl;
+	std::cout<<"Image: "<<zombieImage<<std::endl;
 	SDL_Surface* tmpSurface = SDL_LoadBMP(image);
+	SDL_Surface* tmpZombieSurface = SDL_LoadBMP(zombieImage);
 	std::cout<<"asd: "<<tmpSurface<<std::endl;
 	fighter->playerTexture =SDL_CreateTextureFromSurface(renderer, tmpSurface);
+	zombieCharacter->zombieTexture =SDL_CreateTextureFromSurface(renderer, tmpZombieSurface);
 	SDL_FreeSurface(tmpSurface);
+	SDL_FreeSurface(tmpZombieSurface);
 
 }
 
@@ -78,7 +85,9 @@ void Game::render()
 {
 	SDL_RenderClear(renderer);
 	SDL_Rect tmpRect = fighter->getDestRect();
+	SDL_Rect tmpZombieRect = zombieCharacter->getDestRect();
 	SDL_RenderCopy(renderer, fighter->playerTexture,NULL,&tmpRect);
+	SDL_RenderCopy(renderer, zombieCharacter->zombieTexture,NULL,&tmpZombieRect);
 
 	SDL_RenderPresent(renderer);
 
