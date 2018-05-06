@@ -16,6 +16,7 @@
 SDL_Event Game::e;
 SDL_Renderer* Game::renderer =NULL;
 
+
 Manager manager;
 auto& Player(manager.addEntity());
 
@@ -82,6 +83,15 @@ void Game::update()
 	manager.refresh();
 	manager.update();
 
+	mapa->dest.x =Player.getComponent<TransformComponent>().position.x *-4;
+	if(mapa->dest.x>0){
+		mapa->dest.x =0;
+		Player.getComponent<TransformComponent>().position.x=0;
+	}
+	if(mapa->dest.x<3000*-1+800){
+		mapa->dest.x = 3000*-1+800;
+		Player.getComponent<TransformComponent>().position.x=550;
+	}
 
 }
 
