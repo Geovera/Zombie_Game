@@ -4,14 +4,14 @@
 
 Map::Map()
 {
-  background = textureManager::loadTexture("imagesPlaceHolder/background.png");
+  background = textureManager::loadTexture("../images/BGZombieCC.png");
 
   src.x = src.y =0;
 
   src.w = dest.w = 3000;
-  src.h = dest.h = 640;
+  src.h = dest.h = 480;
 
-  dest.x = dest.y =-100;
+  dest.x = dest.y =0;
 }
 
 Map::~Map()

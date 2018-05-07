@@ -16,9 +16,10 @@ public:
   //void LoadMap();
   void DrawMap();
 
+  SDL_Rect src, dest;
+
 private:
 
-  SDL_Rect src, dest;
 
   SDL_Texture* background;
 

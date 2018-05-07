@@ -14,7 +14,7 @@ public:
 
   Vector2D velocity;
 
-  int speed =3;
+  int speed =2;
   TransformComponent()
   {
     position.x =0.0f;
