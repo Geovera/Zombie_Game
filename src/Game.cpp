@@ -18,7 +18,10 @@ SDL_Renderer* Game::renderer =NULL;
 
 
 Manager manager;
+auto& Map(manager.addEntity());
 auto& Player(manager.addEntity());
+auto& Enemy(manager.addEntity());
+auto& Ally(manager.addEntity());
 
 Game::Game() {
 	// TODO Auto-generated constructor stub
@@ -36,6 +39,8 @@ Game::~Game() {
 
 void Game::init(const char* title, int xpos, int ypos,int width, int height, bool fullscreen)
 {
+	SCREEN_WITDH = width;
+	SCREEN_HEIGHT = height;
 	int flag =0;
 	if(fullscreen)
 		flag =SDL_WINDOW_FULLSCREEN;
@@ -58,9 +63,19 @@ void Game::init(const char* title, int xpos, int ypos,int width, int height, boo
 	mapa = new Map();
 	//Player = new GameObject("imagesPlaceHolder/IdlePlayer.png", 0, 0);
 
+	Map.addComponent<TransformComponent>(0.0f,0.0f);
+	Map.addComponent<SpriteComponent>("../");
+
 	Player.addComponent<TransformComponent>(200.0f,200.0f);
-	Player.addComponent<SpriteComponent>("imagesPlaceHolder/AnotherPlayer.png");
-	Player.addComponent<KeyBoardController>();
+	Player.addComponent<SpriteComponent>("../images/Main-Character64x64.png");
+	//Player.addComponent<KeyBoardController>();
+
+	//Test
+	Enemy.addComponent<TransformComponent>(200.0f,200.0f);
+	Enemy.addComponent<SpriteComponent>("imagesPlaceHolder/AnotherPlayer.png");
+
+	Ally.addComponent<TransformComponent>(600.0f,200.0f);
+	Ally.addComponent<SpriteComponent>("imagesPlaceHolder/IdlePlayer.png");
 }
 
 void Game::handleEvents()
