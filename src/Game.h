@@ -10,6 +10,7 @@
 
 #include "Map.h"
 #include <SDL2/SDL.h>
+#include "ECS/ECS.h"
 //#include <SDL2/SDL_image.h>
 
 class Map;
@@ -27,6 +28,8 @@ public:
 
 	static SDL_Renderer* renderer;
 	static SDL_Event e;
+	static Manager manager;
+	static Entity& Map;
 	//static int SCREEN_WITDH;
 	//static int SCREEN_HEIGHT;
 
