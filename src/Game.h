@@ -27,6 +27,8 @@ public:
 
 	static SDL_Renderer* renderer;
 	static SDL_Event e;
+	static int SCREEN_WITDH;
+	static int SCREEN_HEIGHT;
 
 	bool isRunning(){return running;}
 
