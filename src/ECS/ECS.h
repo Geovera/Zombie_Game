@@ -63,6 +63,8 @@ public:
     for(auto& c: components) c->draw();
   }
 
+  bool zombie=false;
+  void SetZombie(bool set){zombie=set;}
   bool isActive(){return active;}
   void destroy(){active = false;}
 

@@ -8,6 +8,7 @@
 #include "Game.h"
 #include "textureManager.h"
 #include "ECS/Components.h"
+#include "ZombieManager.h"
 //#include "ECS/KeyBoardController.h"
 #include "Vector2D.h"
 #include <iostream>
@@ -15,13 +16,14 @@
 
 SDL_Event Game::e;
 SDL_Renderer* Game::renderer =NULL;
+Manager Game::manager;
+Entity& mapa(Game::manager.addEntity());
 
-
-Manager manager;
-auto& Map(manager.addEntity());
-auto& Player(manager.addEntity());
-auto& Enemy(manager.addEntity());
-auto& Ally(manager.addEntity());
+ZombieManager* zombieManager;
+Entity* Game::Map=&mapa;
+auto& Player(Game::manager.addEntity());
+auto& Enemy(Game::manager.addEntity());
+auto& Ally(Game::manager.addEntity());
 
 Game::Game() {
 	// TODO Auto-generated constructor stub
@@ -60,25 +62,29 @@ void Game::init(const char* title, int xpos, int ypos,int width, int height, boo
 		}
 		running = true;
 	}
-	//mapa = new Map();
+	//Game::Mapa = new Game::Map();
 	//Player = new GameObject("imagesPlaceHolder/IdlePlayer.png", 0, 0);
 
-	Map.addComponent<TransformComponent>(0.0f,0.0f);
-	Map.addComponent<SpriteComponent>("../images/BGZombieCC.png",3000,480);
-	Map.addComponent<KeyBoardController>();
+	Game::Map->addComponent<TransformComponent>(0.0f,0.0f);
+	Game::Map->addComponent<SpriteComponent>("../images/BGZombieCC.png",3000,480);
+	Game::Map->addComponent<KeyBoardController>();
 
 	Player.addComponent<TransformComponent>(200.0f,200.0f);
 	Player.addComponent<SpriteComponent>("../images/Main-Character64x64.png",256,256);
 	//Player.addComponent<KeyBoardController>();
 
+	zombieManager = new ZombieManager();
+	/*
 	//Test
 	Enemy.addComponent<TransformComponent>(200.0f,200.0f);
 	Enemy.addComponent<SpriteComponent>("imagesPlaceHolder/AnotherPlayer.png");
 	Enemy.addComponent<KeyBoardController>();
+	Enemy.SetZombie(true);
 
 	Ally.addComponent<TransformComponent>(600.0f,200.0f);
 	Ally.addComponent<SpriteComponent>("imagesPlaceHolder/IdlePlayer.png");
 	Ally.addComponent<KeyBoardController>();
+	Ally.SetZombie(true);*/
 }
 
 void Game::handleEvents()
@@ -98,15 +104,16 @@ void Game::handleEvents()
 
 void Game::update()
 {
-	manager.refresh();
-	manager.update();
-/*mapa->dest.x =Player.getComponent<TransformComponent>().position.x *-4;
-	if(mapa->dest.x>0){
-		mapa->dest.x =0;
+	Game::manager.refresh();
+	Game::manager.update();
+	zombieManager->update();
+/*Game::Mapa->dest.x =Player.getComponent<TransformComponent>().position.x *-4;
+	if(Game::Mapa->dest.x>0){
+		Game::Mapa->dest.x =0;
 		Player.getComponent<TransformComponent>().position.x=0;
 	}
-	if(mapa->dest.x<3000*-1+800){
-		mapa->dest.x = 3000*-1+800;
+	if(Game::Mapa->dest.x<3000*-1+800){
+		Game::Mapa->dest.x = 3000*-1+800;
 		Player.getComponent<TransformComponent>().position.x=550;
 	}*/
 
@@ -116,8 +123,8 @@ void Game::render()
 {
 	SDL_RenderClear(renderer);
 	//SDL_RenderCopy(renderer, backgroundTex,NULL,NULL);
-	//mapa->DrawMap();
-	manager.draw();
+	//Game::Mapa->DrawGame::Map();
+	Game::manager.draw();
 
 	SDL_RenderPresent(renderer);
 

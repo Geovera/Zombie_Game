@@ -41,6 +41,8 @@ public:
       position.x=0;
     if(position.x<-2360)
       position.x=-2360;
+    if(entity->zombie)
+      position.x++;
   }
 
 };
