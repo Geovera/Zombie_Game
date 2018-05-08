@@ -27,8 +27,8 @@ public:
 
 	static SDL_Renderer* renderer;
 	static SDL_Event e;
-	static int SCREEN_WITDH;
-	static int SCREEN_HEIGHT;
+	//static int SCREEN_WITDH;
+	//static int SCREEN_HEIGHT;
 
 	bool isRunning(){return running;}
 
@@ -39,7 +39,7 @@ private:
 	bool running;
 	int cnt;
 
-	Map* mapa;
+	//Map* mapa;
 	SDL_Window* window;
 	SDL_Texture* backgroundTex;
 };

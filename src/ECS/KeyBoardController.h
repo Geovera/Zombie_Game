@@ -23,10 +23,10 @@ public:
       switch(Game::e.key.keysym.sym)
       {
         case SDLK_LEFT:
-          transform->velocity.x=-1;
+          transform->velocity.x=1;
           break;
         case SDLK_RIGHT:
-          transform->velocity.x=1;
+          transform->velocity.x=-1;
           break;
         default:
           break;

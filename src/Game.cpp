@@ -39,8 +39,8 @@ Game::~Game() {
 
 void Game::init(const char* title, int xpos, int ypos,int width, int height, bool fullscreen)
 {
-	SCREEN_WITDH = width;
-	SCREEN_HEIGHT = height;
+	//SCREEN_WITDH = width;
+	//SCREEN_HEIGHT = height;
 	int flag =0;
 	if(fullscreen)
 		flag =SDL_WINDOW_FULLSCREEN;
@@ -60,22 +60,25 @@ void Game::init(const char* title, int xpos, int ypos,int width, int height, boo
 		}
 		running = true;
 	}
-	mapa = new Map();
+	//mapa = new Map();
 	//Player = new GameObject("imagesPlaceHolder/IdlePlayer.png", 0, 0);
 
 	Map.addComponent<TransformComponent>(0.0f,0.0f);
-	Map.addComponent<SpriteComponent>("../");
+	Map.addComponent<SpriteComponent>("../images/BGZombieCC.png",3000,480);
+	Map.addComponent<KeyBoardController>();
 
 	Player.addComponent<TransformComponent>(200.0f,200.0f);
-	Player.addComponent<SpriteComponent>("../images/Main-Character64x64.png");
+	Player.addComponent<SpriteComponent>("../images/Main-Character64x64.png",256,256);
 	//Player.addComponent<KeyBoardController>();
 
 	//Test
 	Enemy.addComponent<TransformComponent>(200.0f,200.0f);
 	Enemy.addComponent<SpriteComponent>("imagesPlaceHolder/AnotherPlayer.png");
+	Enemy.addComponent<KeyBoardController>();
 
 	Ally.addComponent<TransformComponent>(600.0f,200.0f);
 	Ally.addComponent<SpriteComponent>("imagesPlaceHolder/IdlePlayer.png");
+	Ally.addComponent<KeyBoardController>();
 }
 
 void Game::handleEvents()
@@ -97,8 +100,7 @@ void Game::update()
 {
 	manager.refresh();
 	manager.update();
-
-	mapa->dest.x =Player.getComponent<TransformComponent>().position.x *-4;
+/*mapa->dest.x =Player.getComponent<TransformComponent>().position.x *-4;
 	if(mapa->dest.x>0){
 		mapa->dest.x =0;
 		Player.getComponent<TransformComponent>().position.x=0;
@@ -106,7 +108,7 @@ void Game::update()
 	if(mapa->dest.x<3000*-1+800){
 		mapa->dest.x = 3000*-1+800;
 		Player.getComponent<TransformComponent>().position.x=550;
-	}
+	}*/
 
 }
 
@@ -114,7 +116,7 @@ void Game::render()
 {
 	SDL_RenderClear(renderer);
 	//SDL_RenderCopy(renderer, backgroundTex,NULL,NULL);
-	mapa->DrawMap();
+	//mapa->DrawMap();
 	manager.draw();
 
 	SDL_RenderPresent(renderer);
