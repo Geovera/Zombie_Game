@@ -16,7 +16,14 @@ private:
   SDL_Texture* texture;
 public:
   SpriteComponent() =default;
-  SpriteComponent(const char* path){setTex(path);}
+  SpriteComponent(const char* path, int width=64, int height=64){
+    setTex(path);
+    srcRect.x = srcRect.y =0;
+    srcRect.w = width;
+    srcRect.h =height;
+    destRect.w = width;
+    destRect.h = height;
+  }
   virtual ~SpriteComponent(){}
 
   void setTex(const char* path)
@@ -28,9 +35,7 @@ public:
   {
     transform = &entity->getComponent<TransformComponent>();
 
-    srcRect.x = srcRect.y =0;
-    srcRect.w = srcRect.h =64;
-    destRect.w = destRect.h =128;
+
   }
   void update() override
   {

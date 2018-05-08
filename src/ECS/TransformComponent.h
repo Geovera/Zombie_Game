@@ -14,7 +14,7 @@ public:
 
   Vector2D velocity;
 
-  int speed =3;
+  int speed =7;
   TransformComponent()
   {
     position.x =0.0f;
@@ -37,6 +37,10 @@ public:
   void update() override
   {
     position.x+= velocity.x * speed;
+    if(position.x>0)
+      position.x=0;
+    if(position.x<-2360)
+      position.x=-2360;
   }
 
 };
