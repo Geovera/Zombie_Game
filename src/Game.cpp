@@ -68,7 +68,7 @@ void Game::init(const char* title, int xpos, int ypos,int width, int height, boo
 	Map.addComponent<KeyBoardController>();
 
 	Player.addComponent<TransformComponent>(200.0f,200.0f);
-	Player.addComponent<SpriteComponent>("../images/Main-Character64x64.png",256,256);
+	Player.addComponent<SpriteComponent>("../images/Main-Character64x64.png",64,64);
 	//Player.addComponent<KeyBoardController>();
 
 	//Test
