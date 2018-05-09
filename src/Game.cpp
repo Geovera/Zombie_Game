@@ -17,10 +17,10 @@
 SDL_Event Game::e;
 SDL_Renderer* Game::renderer =NULL;
 Manager Game::manager;
-Entity& mapa(Game::manager.addEntity());
+Entity& Game::Map(Game::manager.addEntity());
 
 ZombieManager* zombieManager;
-Entity* Game::Map=&mapa;
+//Entity& Game::Map=mapa;
 auto& Player(Game::manager.addEntity());
 auto& Enemy(Game::manager.addEntity());
 auto& Ally(Game::manager.addEntity());
@@ -62,15 +62,20 @@ void Game::init(const char* title, int xpos, int ypos,int width, int height, boo
 		}
 		running = true;
 	}
+	//std::cout<<"mapa: "<<&mapa<<std::endl;
+	//std::cout<<"Map: "<<&Map<<std::endl;
 	//Game::Mapa = new Game::Map();
 	//Player = new GameObject("imagesPlaceHolder/IdlePlayer.png", 0, 0);
-
-	Game::Map->addComponent<TransformComponent>(0.0f,0.0f);
-	Game::Map->addComponent<SpriteComponent>("../images/BGZombieCC.png",3000,480);
-	Game::Map->addComponent<KeyBoardController>();
-
-	Player.addComponent<TransformComponent>(200.0f,200.0f);
-	Player.addComponent<SpriteComponent>("../images/Main-Character64x64.png",256,256);
+	//std::cout<<"Map initialize"<<std::endl;
+	Game::Map.addComponent<TransformComponent>(0.0f,0.0f,false);
+	//std::cout<<"Map initialize"<<std::endl;
+	Game::Map.addComponent<SpriteComponent>("../images/BGZombieCC.png",3000,480);
+	//std::cout<<"Map initialize"<<std::endl;
+	Game::Map.addComponent<KeyBoardController>();
+	//std::cout<<"Map initialize"<<std::endl;
+	Player.addComponent<TransformComponent>(180.0f,200.0f,false);
+	Player.addComponent<SpriteComponent>("../images/Main-Character-x256.png",256,256);
+	Player.setPlayer(true);
 	//Player.addComponent<KeyBoardController>();
 
 	zombieManager = new ZombieManager();

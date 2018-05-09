@@ -27,7 +27,7 @@ public:
     round++;
     std::cout<<"Round: "<<round<<std::endl;
     //zombiesNumber = rand() %10 +1;
-    zombiesNumber =5;
+    zombiesNumber =5*round;
     zombies.clear();
     for(int i=0;i<zombiesNumber;i++)
     {
@@ -35,16 +35,33 @@ public:
       Entity* AnotherZombie = &tempZombie;
       zombies.push_back(AnotherZombie);
       zombies[i]->SetZombie(true);
+      //std::cout<<i<<": "<<&zombies[i]<<std::endl;
+      //std::cout<<i<<" temp: "<<&tempZombie<<std::endl;
     }
     roundOver=false;
   }
   void spawnZombie()
   {
+    int posX = Game::Map.getComponent<TransformComponent>().position.x;
+    //std::cout<<"X: "<<posX<<std::endl;
+    //std::cout<<"X1: "<<posX + 1500<<std::endl;
     if(timePassed<zombieDelay)
       return;
-    zombies[currentIndex]->addComponent<TransformComponent>(Game::Map->getComponent<TransformComponent>().position.x,200.0f);
-    zombies[currentIndex]->addComponent<SpriteComponent>("imagesPlaceHolder/AnotherPlayer.png");
-    zombies[currentIndex]->addComponent<KeyBoardController>();
+    if(currentIndex%2==0){
+      //std::cout<<"Hello1: "<<currentIndex<<std::endl;
+      //std::cout<<"Address: "<<zombies[currentIndex]<<std::endl;
+      //std::cout<<"Map: "<<&Game::Map<<std::endl;
+      //std::cout<<"NO"<<std::endl;
+      zombies[currentIndex]->addComponent<TransformComponent>(posX,200.0f,false);
+      //std::cout<<"Hola1"<<std::endl;
+      zombies[currentIndex]->addComponent<SpriteComponent>("../images/Zombie-Test.png",256,256);
+      zombies[currentIndex]->addComponent<KeyBoardController>();
+    }
+    else{
+      zombies[currentIndex]->addComponent<TransformComponent>(posX+1500.0f,200.0f,true);
+      zombies[currentIndex]->addComponent<SpriteComponent>("../images/Zombie-Test.png",256,256,SDL_FLIP_HORIZONTAL);
+      zombies[currentIndex]->addComponent<KeyBoardController>();
+    }
     currentIndex++;
     timePassed=0.0f;
   }

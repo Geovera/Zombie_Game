@@ -11,18 +11,21 @@ class SpriteComponent : public Component
 {
 
 private:
+  SDL_RendererFlip flipType;
   TransformComponent* transform;
   SDL_Rect srcRect, destRect;
   SDL_Texture* texture;
 public:
   SpriteComponent() =default;
-  SpriteComponent(const char* path, int width=64, int height=64){
+  SpriteComponent(const char* path, int width=64, int height=64, SDL_RendererFlip flipT= SDL_FLIP_NONE){
     setTex(path);
     srcRect.x = srcRect.y =0;
     srcRect.w = width;
     srcRect.h =height;
     destRect.w = width;
     destRect.h = height;
+    flipType=flipT;
+    //std::cout<<path<<" : "<<flipType<<std::endl;
   }
   virtual ~SpriteComponent(){}
 
@@ -45,7 +48,7 @@ public:
 
   void draw() override
   {
-    textureManager::Draw(texture,srcRect,destRect);
+    textureManager::Draw(texture,srcRect,destRect,flipType);
   }
 
 };
