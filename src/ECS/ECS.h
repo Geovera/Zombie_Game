@@ -37,6 +37,8 @@ class Component
 public:
   Entity* entity;
 
+  int ID;
+
   virtual void init() {}
   virtual void update(){}
   virtual void draw() {}
@@ -49,7 +51,8 @@ class Entity
 {
 private:
   bool active = true;
-  std::vector<std::unique_ptr<Component>> components;
+  int currentIndex=0;
+  std::vector<Component*> components;
 
   ComponentArray componentArray;
   ComponentBitSet componentBitSet;
@@ -63,37 +66,47 @@ public:
     for(auto& c: components) c->draw();
   }
 
+  bool zombie=false;
+  bool player=false;
+  void SetZombie(bool set){zombie=set;}
+  void setPlayer(bool set){player=set;}
   bool isActive(){return active;}
   void destroy(){active = false;}
 
   template <class T> bool hasComponent() const
   {
-    long ID = (long)getComponentTypeID<T>-4206580;
-    return componentBitSet[ID];
+    //long ID = (long)getComponentTypeID<T>-4206580;
+    return componentBitSet[getComponentTypeID<T>()];
   }
 
   template <class T, class... Targs>
-  T& addComponent(Targs&&... mArgs)
+  void addComponent(Targs&&... mArgs)
   {
-    T* c(new T(std::forward<Targs>(mArgs)...));
+    //T* c(new T(std::forward<Targs>(mArgs)...));
+    T* c=new T(std::forward<Targs>(mArgs)...);
+    //std::cout<<"1: "<<c<<std::endl;
     c->entity =this;
-    std::unique_ptr<Component> uPtr{c};
-    components.emplace_back(std::move(uPtr));
+    //std::cout<<"2: "<<c<<std::endl;
+    //Component* uPtr{c};
+    components.push_back(c);
+    //std::cout<<"3: "<<c<<std::endl;
 
-    long ID = (long)getComponentTypeID<T>-4206580;
-    componentArray[ID] = c;
-    componentBitSet[ID] =true;
+    //long ID = (long)getComponentTypeID<T>();
+    //std::cout<<"Test2: "<<ID<<std::endl;
+    componentArray[getComponentTypeID<T>()] = c;
+    //std::cout<<"Test: "<<std::endl;
+    componentBitSet[getComponentTypeID<T>()] =true;
     //std::cout<<"X: "<<componentArray[ID]<T>.x()<<std::endl;
-
+    //std::cout<<"4: "<<c<<std::endl;
     c->init();
-    return *c;
+    //std::cout<<"5: "<<c<<std::endl;
+    //return *c;
   }
 
   template <class T> T& getComponent() const
   {
 
-    long ID = (long)getComponentTypeID<T>-4206580;
-    auto ptr(componentArray[ID]);
+    auto ptr(componentArray[getComponentTypeID<T>()]);
     return *static_cast<T*>(ptr);
   }
 
@@ -103,8 +116,8 @@ public:
 class Manager
 {
 private:
-  std::vector<std::unique_ptr<Entity>> entities;
-
+  //std::vector<std::unique_ptr<Entity>> entities;
+  std::vector<Entity*> entities;
 public:
   void update()
   {
@@ -118,7 +131,7 @@ public:
   void refresh()
   {
     entities.erase(std::remove_if(std::begin(entities),std::end(entities),
-      [](const std::unique_ptr<Entity> &mEntity)
+      [](Entity* mEntity)
     {
       return !mEntity ->isActive();
     }),
@@ -128,8 +141,9 @@ public:
   Entity& addEntity()
   {
     Entity* e = new Entity();
-    std::unique_ptr<Entity> uPtr{e};
-    entities.emplace_back(std::move(uPtr));
+    //std::unique_ptr<Entity> uPtr{e};
+    //entities.emplace_back(std::move(uPtr));
+    entities.push_back(e);
     return *e;
   }
 
