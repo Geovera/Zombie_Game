@@ -43,7 +43,9 @@ public:
   virtual void update(){}
   virtual void draw() {}
 
-  virtual ~Component(){}
+  virtual ~Component(){
+    std::cerr<<"Component object is destroy"<<std::endl;
+  }
 
 };
 
@@ -82,32 +84,18 @@ public:
   template <class T, class... Targs>
   void addComponent(Targs&&... mArgs)
   {
-    //T* c(new T(std::forward<Targs>(mArgs)...));
-    T* c=new T(std::forward<Targs>(mArgs)...);
-    //std::cout<<"1: "<<c<<std::endl;
-    c->entity =this;
-    //std::cout<<"2: "<<c<<std::endl;
-    //Component* uPtr{c};
+    T* c = new T(Targs(mArgs)...);
+    c-> entity = this;
     components.push_back(c);
-    //std::cout<<"3: "<<c<<std::endl;
-
-    //long ID = (long)getComponentTypeID<T>();
-    //std::cout<<"Test2: "<<ID<<std::endl;
-    componentArray[getComponentTypeID<T>()] = c;
-    //std::cout<<"Test: "<<std::endl;
-    componentBitSet[getComponentTypeID<T>()] =true;
-    //std::cout<<"X: "<<componentArray[ID]<T>.x()<<std::endl;
-    //std::cout<<"4: "<<c<<std::endl;
+    componentArray[getComponentTypeID<T>()]=c;
+    componentBitSet[getComponentTypeID<T>()]=true;
     c->init();
-    //std::cout<<"5: "<<c<<std::endl;
-    //return *c;
   }
 
-  template <class T> T& getComponent() const
+  template <class T> T* getComponent() const
   {
-
-    auto ptr(componentArray[getComponentTypeID<T>()]);
-    return *static_cast<T*>(ptr);
+    //std::cerr<<"AdTrans: "<<componentArray[getComponentTypeID<T>()]<<std::endl;
+    return static_cast<T*>(componentArray[getComponentTypeID<T>()]);
   }
 
 

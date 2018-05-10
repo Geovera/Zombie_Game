@@ -66,16 +66,27 @@ void Game::init(const char* title, int xpos, int ypos,int width, int height, boo
 	//std::cout<<"Map: "<<&Map<<std::endl;
 	//Game::Mapa = new Game::Map();
 	//Player = new GameObject("imagesPlaceHolder/IdlePlayer.png", 0, 0);
-	//std::cout<<"Map initialize"<<std::endl;
-	Game::Map.addComponent<TransformComponent>(0.0f,0.0f,false);
-	//std::cout<<"Map initialize"<<std::endl;
-	Game::Map.addComponent<SpriteComponent>("../images/BGZombieCC.png",3000,480);
-	//std::cout<<"Map initialize"<<std::endl;
+	//std::cout<<"Map initialize: "<<&Map<<std::endl;
+	Game::Map.addComponent<TransformComponent>(0.0f,0.0f,3000,480);
+	auto asd =Map.getComponent<TransformComponent>();
+	//std::cout<<"Transform: "<<&asd<<std::endl;;
+	/*std::cout<<"x: "<<asd.position.x<<std::endl;
+	std::cout<<"y: "<<asd.position.y<<std::endl;
+	std::cout<<"w: "<<asd.width<<std::endl;
+	std::cout<<"h: "<<asd.height<<std::endl;
+	std::cout<<"Map initialize: "<<&Map<<std::endl;
+	std::cerr<<"Transform: "<<&asd;*/
+
+	Game::Map.addComponent<SpriteComponent>("../images/BGZombieCC.png", SDL_FLIP_NONE);
+	//std::cout<<"Map initialize: "<<&Map<<std::endl;
 	Game::Map.addComponent<KeyBoardController>();
 	//std::cout<<"Map initialize"<<std::endl;
-	Player.addComponent<TransformComponent>(180.0f,200.0f,false);
-	Player.addComponent<SpriteComponent>("../images/Main-Character-x256.png",256,256);
+	Player.addComponent<TransformComponent>(180.0f,200.0f);
+	//std::cout<<"Hola"<<std::endl;
+	Player.addComponent<SpriteComponent>("../images/Main-Character-x256.png");
+	//std::cout<<"Hola"<<std::endl;
 	Player.setPlayer(true);
+	//std::cout<<"Hola"<<std::endl;
 	//Player.addComponent<KeyBoardController>();
 
 	zombieManager = new ZombieManager();

@@ -42,24 +42,26 @@ public:
   }
   void spawnZombie()
   {
-    int posX = Game::Map.getComponent<TransformComponent>().position.x;
+
     //std::cout<<"X: "<<posX<<std::endl;
-    //std::cout<<"X1: "<<posX + 1500<<std::endl;
+    //std::cout<<"X1: "<<posX + 3000<<std::endl;
     if(timePassed<zombieDelay)
       return;
+    int posX = Game::Map.getComponent<TransformComponent>()->position.x;
     if(currentIndex%2==0){
       //std::cout<<"Hello1: "<<currentIndex<<std::endl;
       //std::cout<<"Address: "<<zombies[currentIndex]<<std::endl;
       //std::cout<<"Map: "<<&Game::Map<<std::endl;
       //std::cout<<"NO"<<std::endl;
-      zombies[currentIndex]->addComponent<TransformComponent>(posX,200.0f,false);
-      //std::cout<<"Hola1"<<std::endl;
-      zombies[currentIndex]->addComponent<SpriteComponent>("../images/Zombie-Test.png",256,256);
+      zombies[currentIndex]->addComponent<TransformComponent>(posX,200.0f);
+      //std::cout<<"Hola1"<<std::endl;0
+      //std::cerr<<"Image: "<<
+      zombies[currentIndex]->addComponent<SpriteComponent>("../images/Zombie-Test.png");
       zombies[currentIndex]->addComponent<KeyBoardController>();
     }
     else{
-      zombies[currentIndex]->addComponent<TransformComponent>(posX+1500.0f,200.0f,true);
-      zombies[currentIndex]->addComponent<SpriteComponent>("../images/Zombie-Test.png",256,256,SDL_FLIP_HORIZONTAL);
+      zombies[currentIndex]->addComponent<TransformComponent>(posX+3000.0f,200.0f,256,256, true);
+      zombies[currentIndex]->addComponent<SpriteComponent>("../images/Zombie-Test.png", SDL_FLIP_HORIZONTAL);
       zombies[currentIndex]->addComponent<KeyBoardController>();
     }
     currentIndex++;
