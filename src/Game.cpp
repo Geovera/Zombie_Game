@@ -98,7 +98,6 @@ void Game::init(const char* title, int xpos, int ypos,int width, int height, boo
 
 	//std::cout<<"Hola"<<std::endl;
 	Player->setPlayer(true);
-	//std::cout<<"Hola"<<std::endl;
 	//Player.addComponent<KeyBoardController>();
 
 	zombieManager = new ZombieManager();
