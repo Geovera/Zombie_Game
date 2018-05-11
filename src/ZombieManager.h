@@ -27,7 +27,7 @@ public:
     round++;
     std::cout<<"Round: "<<round<<std::endl;
     //zombiesNumber = rand() %10 +1;
-    zombiesNumber =5*round;
+    zombiesNumber =100*round;
     zombies.clear();
     for(int i=0;i<zombiesNumber;i++)
     {

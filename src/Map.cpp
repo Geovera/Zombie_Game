@@ -21,5 +21,5 @@ Map::~Map()
 
 void Map::DrawMap()
 {
-  textureManager::Draw(background,src,dest);
+  textureManager::Draw(background,src,dest,SDL_FLIP_NONE);
 }

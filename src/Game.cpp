@@ -9,6 +9,7 @@
 #include "textureManager.h"
 #include "ECS/Components.h"
 #include "ZombieManager.h"
+//#include "HealthBarComponent.h"
 //#include "ECS/KeyBoardController.h"
 #include "Vector2D.h"
 #include <iostream>
@@ -62,19 +63,11 @@ void Game::init(const char* title, int xpos, int ypos,int width, int height, boo
 		}
 		running = true;
 	}
+	//std::cout<<"Hi"<<std::endl;
 	//std::cout<<"mapa: "<<&mapa<<std::endl;
 	//std::cout<<"Map: "<<&Map<<std::endl;
 	//Game::Mapa = new Game::Map();
 	//Player = new GameObject("imagesPlaceHolder/IdlePlayer.png", 0, 0);
-<<<<<<< HEAD
-
-	Map.addComponent<TransformComponent>(0.0f,0.0f);
-	Map.addComponent<SpriteComponent>("../images/BGZombieCC.png",3000,480);
-	Map.addComponent<KeyBoardController>();
-
-	Player.addComponent<TransformComponent>(200.0f,200.0f);
-	Player.addComponent<SpriteComponent>("../images/Main-Character64x64.png",64,64);
-=======
 	//std::cout<<"Map initialize"<<std::endl;
 	Game::Map.addComponent<TransformComponent>(0.0f,0.0f,false);
 	//std::cout<<"Map initialize"<<std::endl;
@@ -83,9 +76,9 @@ void Game::init(const char* title, int xpos, int ypos,int width, int height, boo
 	Game::Map.addComponent<KeyBoardController>();
 	//std::cout<<"Map initialize"<<std::endl;
 	Player.addComponent<TransformComponent>(180.0f,200.0f,false);
+	Player.addComponent<HealthBarComponent>();
 	Player.addComponent<SpriteComponent>("../images/Main-Character-x256.png",256,256);
 	Player.setPlayer(true);
->>>>>>> Geovanny
 	//Player.addComponent<KeyBoardController>();
 
 	zombieManager = new ZombieManager();
@@ -116,12 +109,27 @@ void Game::handleEvents()
 	}
 
 }
+/*void rectangle()
+{
+	SDL_Rect rect;
+	rect.x=10;
+	rect.y=10;
+	rect.w=200;
+	rect.h=50;
+	SDL_SetRenderDrawColor(Game::renderer,255,0,0,0);
+	std::cout<<"DrawColor good"<<std::endl;
+	SDL_RenderFillRect(Game::renderer,&rect);
+	std::cout<<"FllRect good"<<std::endl;
+	SDL_RenderPresent(Game::renderer);
+	std::cout<<"RenderPresent good"<<std::endl;
+}*/
 
 void Game::update()
 {
 	Game::manager.refresh();
 	Game::manager.update();
 	zombieManager->update();
+	Player.getComponent<HealthBarComponent>().renderBar();
 /*Game::Mapa->dest.x =Player.getComponent<TransformComponent>().position.x *-4;
 	if(Game::Mapa->dest.x>0){
 		Game::Mapa->dest.x =0;
@@ -144,6 +152,8 @@ void Game::render()
 	SDL_RenderPresent(renderer);
 
 }
+
+
 
 void Game::clean()
 {
