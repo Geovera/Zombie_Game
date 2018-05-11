@@ -5,11 +5,13 @@
 
 #include "Components.h"
 
+class MagazineComponent;
+
 class PlayerKeyComponent : public Component
 {
 public:
   bool selfState = true;
-
+  void ShotBullet();
   void init() override
   {
     selfState = true;
@@ -28,7 +30,7 @@ public:
           selfState = false;
           break;
         case SDLK_SPACE:
-          entity->getComponent<Magazine>()->Shots();
+          ShotBullet();
           break;
         default:
           break;

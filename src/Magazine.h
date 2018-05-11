@@ -28,11 +28,11 @@ public:
   }
   void Shots()
   {
-    int posX = entity->getComponent<TransformComponent>().position.x;
+    int posX = entity->getComponent<TransformComponent>()->position.x;
 
     if(timePassed<shootDelay)
       return;
-    if(entity->getComponent<selfState>==false){
+    if(entity->getComponent<PlayerKeyComponent>()->selfState==false){
       Magazine[currentIndex]->addComponent<TransformComponent>(posX,200.0f,5);
       Magazine[currentIndex]->addComponent<SpriteComponent>("../images/Zombie-Test.png");
       Magazine[currentIndex]->addComponent<KeyBoardController>();
