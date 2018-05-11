@@ -19,13 +19,13 @@ SDL_Event Game::e;
 SDL_Renderer* Game::renderer =NULL;
 Manager Game::manager;
 std::vector<ColliderComponent*>Game::colliders;
-Entity& Game::Map(Game::manager.addEntity());
+Entity* Game::Map(Game::manager.addEntity());
 
 ZombieManager* zombieManager;
 //Entity& Game::Map=mapa;
-auto& Player(Game::manager.addEntity());
-auto& Enemy(Game::manager.addEntity());
-auto& Ally(Game::manager.addEntity());
+auto Player(Game::manager.addEntity());
+auto Enemy(Game::manager.addEntity());
+auto Ally(Game::manager.addEntity());
 
 
 
@@ -70,10 +70,10 @@ void Game::init(const char* title, int xpos, int ypos,int width, int height, boo
 	//std::cout<<"mapa: "<<&mapa<<std::endl;
 	//std::cout<<"Map: "<<&Map<<std::endl;
 	//Game::Mapa = new Game::Map();
-	//Player = new GameObject("imagesPlaceHolder/IdlePlayer.png", 0, 0);
+	//Player = new GameObject("imagesPlaceHolder/IdlePlayer->png", 0, 0);
 	//std::cout<<"Map initialize: "<<&Map<<std::endl;
-	Game::Map.addComponent<TransformComponent>(0.0f,0.0f,1, 3000,480);
-	auto asd =Map.getComponent<TransformComponent>();
+	Game::Map->addComponent<TransformComponent>(0.0f,0.0f,1, 3000,480);
+	auto asd =Map->getComponent<TransformComponent>();
 	//std::cout<<"Transform: "<<&asd<<std::endl;;
 	/*std::cout<<"x: "<<asd.position.x<<std::endl;
 	std::cout<<"y: "<<asd.position.y<<std::endl;
@@ -82,12 +82,12 @@ void Game::init(const char* title, int xpos, int ypos,int width, int height, boo
 	std::cout<<"Map initialize: "<<&Map<<std::endl;
 	std::cerr<<"Transform: "<<&asd;*/
 
-	Game::Map.addComponent<SpriteComponent>("../images/BGZombieCC.png", SDL_FLIP_NONE);
+	Game::Map->addComponent<SpriteComponent>("../images/BGZombieCC.png", SDL_FLIP_NONE);
 	//std::cout<<"Map initialize: "<<&Map<<std::endl;
-	Game::Map.addComponent<KeyBoardController>();
-	Game::Map.addGroup(groupMap);
+	Game::Map->addComponent<KeyBoardController>();
+	Game::Map->addGroup(groupMap);
 	//std::cout<<"Map initialize"<<std::endl;
-	Player.addComponent<TransformComponent>(180.0f,200.0f);
+	Player->addComponent<TransformComponent>(180.0f,200.0f);
 	//std::cout<<"Hola"<<std::endl;
 	Player->addComponent<SpriteComponent>("../images/Main-Character-x256.png");
 	Player->addComponent<ColliderComponent>("Player");
@@ -98,23 +98,23 @@ void Game::init(const char* title, int xpos, int ypos,int width, int height, boo
 
 	//std::cout<<"Hola"<<std::endl;
 	Player->setPlayer(true);
-	//Player.addComponent<KeyBoardController>();
+	//Player->addComponent<KeyBoardController>();
 
 	zombieManager = new ZombieManager();
 
 	//Test
-	Enemy.addComponent<TransformComponent>(1500.0f,200.0f,-1);
-	Enemy.addComponent<SpriteComponent>("imagesPlaceHolder/AnotherPlayer.png");
-	Enemy.addComponent<KeyBoardController>();
-	Enemy.addComponent<ColliderComponent>("zombie");
-	Enemy.addGroup(groupZombies);
+	Enemy->addComponent<TransformComponent>(1500.0f,200.0f,-1);
+	Enemy->addComponent<SpriteComponent>("imagesPlaceHolder/AnotherPlayer->png");
+	Enemy->addComponent<KeyBoardController>();
+	Enemy->addComponent<ColliderComponent>("zombie");
+	Enemy->addGroup(groupZombies);
 
 	std::cerr<<"Man1: "<<&Game::manager<<std::endl;
 	std::cerr<<"Pla1: "<<&Player<<std::endl;
-	//Enemy.SetZombie(true);
+	//Enemy->SetZombie(true);
 /*
 	Ally.addComponent<TransformComponent>(600.0f,200.0f);
-	Ally.addComponent<SpriteComponent>("imagesPlaceHolder/IdlePlayer.png");
+	Ally.addComponent<SpriteComponent>("imagesPlaceHolder/IdlePlayer->png");
 	Ally.addComponent<KeyBoardController>();
 	Ally.SetZombie(true);*/
 }
@@ -140,22 +140,22 @@ void Game::update()
 	Game::manager.update();
 	zombieManager->update();
 
-	for(auto cc : colliders){
-		if(Collision::AABB(Player.getComponent<ColliderComponent>(), cc))
+	for(auto& cc : colliders){
+		if(Collision::AABB(*Player->getComponent<ColliderComponent>(), *cc))
 		{
 			if(cc->tag=="zombie")
 				cc->entity->getComponent<TransformComponent>()->position.x-=1;
 		}
 	}
-	//Player.getComponent<TransformComponent>()->scale=1;
-/*Game::Mapa->dest.x =Player.getComponent<TransformComponent>().position.x *-4;
+	//Player->getComponent<TransformComponent>()->scale=1;
+/*Game::Mapa->dest.x =Player->getComponent<TransformComponent>().position.x *-4;
 	if(Game::Mapa->dest.x>0){
 		Game::Mapa->dest.x =0;
-		Player.getComponent<TransformComponent>().position.x=0;
+		Player->getComponent<TransformComponent>().position.x=0;
 	}
 	if(Game::Mapa->dest.x<3000*-1+800){
 		Game::Mapa->dest.x = 3000*-1+800;
-		Player.getComponent<TransformComponent>().position.x=550;
+		Player->getComponent<TransformComponent>().position.x=550;
 	}*/
 
 }
