@@ -18,7 +18,7 @@ Game* zombie=NULL;
 
 int main() {
 
-	const int FPS = 60;
+	const int FPS = 120;
 	const int frameDelay =1000/FPS;
 
 	Uint32 frameStart;

@@ -9,6 +9,7 @@
 #include "textureManager.h"
 #include "ECS/Components.h"
 #include "ZombieManager.h"
+#include "Collision.h"
 //#include "ECS/KeyBoardController.h"
 #include "Vector2D.h"
 #include <iostream>
@@ -17,6 +18,7 @@
 SDL_Event Game::e;
 SDL_Renderer* Game::renderer =NULL;
 Manager Game::manager;
+std::vector<ColliderComponent*>Game::colliders;
 Entity& Game::Map(Game::manager.addEntity());
 
 ZombieManager* zombieManager;
@@ -24,6 +26,9 @@ ZombieManager* zombieManager;
 auto& Player(Game::manager.addEntity());
 auto& Enemy(Game::manager.addEntity());
 auto& Ally(Game::manager.addEntity());
+
+
+
 
 Game::Game() {
 	// TODO Auto-generated constructor stub
@@ -66,26 +71,45 @@ void Game::init(const char* title, int xpos, int ypos,int width, int height, boo
 	//std::cout<<"Map: "<<&Map<<std::endl;
 	//Game::Mapa = new Game::Map();
 	//Player = new GameObject("imagesPlaceHolder/IdlePlayer.png", 0, 0);
-	//std::cout<<"Map initialize"<<std::endl;
-	Game::Map.addComponent<TransformComponent>(0.0f,0.0f,false);
-	//std::cout<<"Map initialize"<<std::endl;
-	Game::Map.addComponent<SpriteComponent>("../images/BGZombieCC.png",3000,480);
-	//std::cout<<"Map initialize"<<std::endl;
+	//std::cout<<"Map initialize: "<<&Map<<std::endl;
+	Game::Map.addComponent<TransformComponent>(0.0f,0.0f,1, 3000,480);
+	auto asd =Map.getComponent<TransformComponent>();
+	//std::cout<<"Transform: "<<&asd<<std::endl;;
+	/*std::cout<<"x: "<<asd.position.x<<std::endl;
+	std::cout<<"y: "<<asd.position.y<<std::endl;
+	std::cout<<"w: "<<asd.width<<std::endl;
+	std::cout<<"h: "<<asd.height<<std::endl;
+	std::cout<<"Map initialize: "<<&Map<<std::endl;
+	std::cerr<<"Transform: "<<&asd;*/
+
+	Game::Map.addComponent<SpriteComponent>("../images/BGZombieCC.png", SDL_FLIP_NONE);
+	//std::cout<<"Map initialize: "<<&Map<<std::endl;
 	Game::Map.addComponent<KeyBoardController>();
+	Game::Map.addGroup(groupMap);
 	//std::cout<<"Map initialize"<<std::endl;
-	Player.addComponent<TransformComponent>(180.0f,200.0f,false);
-	Player.addComponent<SpriteComponent>("../images/Main-Character-x256.png",256,256);
+	Player.addComponent<TransformComponent>(180.0f,200.0f);
+	//std::cout<<"Hola"<<std::endl;
+	Player.addComponent<SpriteComponent>("../images/Main-Character-x256.png");
+	Player.addComponent<ColliderComponent>("Player");
+	Player.addGroup(groupPlayers);
+	//std::cout<<"Hola"<<std::endl;
 	Player.setPlayer(true);
+	//std::cout<<"Hola"<<std::endl;
 	//Player.addComponent<KeyBoardController>();
 
 	zombieManager = new ZombieManager();
-	/*
+
 	//Test
-	Enemy.addComponent<TransformComponent>(200.0f,200.0f);
+	Enemy.addComponent<TransformComponent>(1500.0f,200.0f,-1);
 	Enemy.addComponent<SpriteComponent>("imagesPlaceHolder/AnotherPlayer.png");
 	Enemy.addComponent<KeyBoardController>();
-	Enemy.SetZombie(true);
+	Enemy.addComponent<ColliderComponent>("zombie");
+	Enemy.addGroup(groupZombies);
 
+	std::cerr<<"Man1: "<<&Game::manager<<std::endl;
+	std::cerr<<"Pla1: "<<&Player<<std::endl;
+	//Enemy.SetZombie(true);
+/*
 	Ally.addComponent<TransformComponent>(600.0f,200.0f);
 	Ally.addComponent<SpriteComponent>("imagesPlaceHolder/IdlePlayer.png");
 	Ally.addComponent<KeyBoardController>();
@@ -112,7 +136,7 @@ void Game::update()
 	Game::manager.refresh();
 	Game::manager.update();
 	zombieManager->update();
-	Magazine.bulletUpdate()
+	Magazine.bulletUpdate();
 /*Game::Mapa->dest.x =Player.getComponent<TransformComponent>().position.x *-4;
 	if(Game::Mapa->dest.x>0){
 		Game::Mapa->dest.x =0;
@@ -125,12 +149,25 @@ void Game::update()
 
 }
 
+std::vector<Entity*>& back(Game::manager.getGroup(groupMap));
+std::vector<Entity*>& players(Game::manager.getGroup(groupPlayers));
+std::vector<Entity*>& zombies(Game::manager.getGroup(groupZombies));
+//auto bar(manager.getGroup(groupHealthBar));
+
 void Game::render()
 {
 	SDL_RenderClear(renderer);
 	//SDL_RenderCopy(renderer, backgroundTex,NULL,NULL);
 	//Game::Mapa->DrawGame::Map();
-	Game::manager.draw();
+	//Game::manager.draw();
+	//std::cout<<"hola: "<<players[0]->hasGroup(groupPlayers)<<std::endl;
+	//std::cout<<"Juga: "<<&Player<<std::endl;
+	for(auto& t : back)
+		t->draw();
+	for(auto& p : players)
+		p->draw();
+	for(auto& z : zombies)
+		z->draw();
 
 	SDL_RenderPresent(renderer);
 

@@ -13,7 +13,7 @@ public:
 
   void init() override
   {
-    transform= &entity->getComponent<TransformComponent>();
+    transform= entity->getComponent<TransformComponent>();
   }
 
   void update() override

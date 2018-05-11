@@ -15,6 +15,11 @@ public:
 
   Vector2D velocity;
 
+  int height;
+  int width;
+  int scale =1;
+
+
   int speed =7;
   int rev =1;
   TransformComponent()
@@ -23,18 +28,22 @@ public:
     position.y=0.0f;
   }
 
-  TransformComponent(float x, float y, bool reversed)
+  TransformComponent(float x, float y, int direc =1 , int Width=256,int Height=256)
   {
     position.x = x;
     position.y =y;
+    width = Width;
+    height = Height;
+
 
     //std::cout<<"Hello"<<std::endl;
-    if(reversed)
-      rev*=-1;
+    rev = direc;
     //std::cout<<"Hola"<<std::endl;
   }
 
-  virtual ~TransformComponent(){}
+  virtual ~TransformComponent(){
+    std::cerr<<"Object is destroy"<<this<<std::endl;
+  }
 
   void init() override
   {
@@ -45,11 +54,11 @@ public:
   void update() override
   {
     position.x+= velocity.x * speed;
-    if(position.x>0 && !(entity->player) && !(entity->zombie))
+    if(position.x>0 && entity->hasGroup(groupMap))
       position.x=0;
     if(position.x<-2360)
       position.x=-2360;
-    if(entity->zombie)
+    if(entity->hasGroup(groupZombies))
       position.x+=rev;
   }
 
