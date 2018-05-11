@@ -21,11 +21,12 @@ public:
       return true;
     return false;
   }
-  static bool AABB(const ColliderComponent* colA, const ColliderComponent* colB)
+  static bool AABB(const ColliderComponent& colA, const ColliderComponent& colB)
   {
-    if(AABB(colA->collider, colB->collider))
+    //std::cerr<<"AABB:: "<<&colA->collider<<" : "<<&colB->collider<<std::endl;
+    if(AABB(colA.collider, colB.collider))
     {
-      std::cout<<colA->tag<< " hit "<< colB->tag<<std::endl;
+      //std::cout<<colA.tag<< " hit "<< colB.tag<<std::endl;
       return true;
     }
     return false;

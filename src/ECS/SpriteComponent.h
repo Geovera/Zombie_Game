@@ -11,11 +11,12 @@ class SpriteComponent : public Component
 {
 
 private:
-  SDL_RendererFlip flipType;
   TransformComponent* transform;
   SDL_Rect srcRect, destRect;
   SDL_Texture* texture;
 public:
+  SDL_RendererFlip flipType;
+
   SpriteComponent();
   SpriteComponent(const char* path, SDL_RendererFlip flipT= SDL_FLIP_NONE){
     //std::cerr<<"before transform: "<<entity->getComponent<TransformComponent>()<<std::endl;

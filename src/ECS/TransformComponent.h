@@ -5,6 +5,7 @@
 
 #include "Components.h"
 #include "../Vector2D.h"
+#include "../Game.h"
 #include <iostream>
 
 class TransformComponent : public Component
@@ -58,7 +59,7 @@ public:
       position.x=0;
     if(position.x<-2360)
       position.x=-2360;
-    if(entity->hasGroup(groupZombies))
+    if(entity->hasGroup(groupZombies) || entity->hasGroup(groupBullets))
       position.x+=rev;
   }
 

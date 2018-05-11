@@ -40,7 +40,7 @@ public:
 	static SDL_Renderer* renderer;
 	static SDL_Event e;
 	static Manager manager;
-	static Entity& Map;
+	static Entity* Map;
 	static std::vector<ColliderComponent*>colliders;
 	//static int SCREEN_WITDH;
 	//static int SCREEN_HEIGHT;

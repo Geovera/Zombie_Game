@@ -155,7 +155,7 @@ public:
   {
     //std::cerr<<"orr: "<<entity<<std::endl;
     groupedEntities[gr].push_back(entity);
-    std::cerr<<"ewuar: "<<&groupedEntities[gr]<<std::endl;
+    //std::cerr<<"ewuar: "<<&groupedEntities[gr]<<std::endl;
     //for(auto asd : groupedEntities[gr])
     //  std::cerr<<"asd"<<std::endl;
   }
@@ -164,18 +164,18 @@ public:
   {
     //std::cerr<<"tu: "<<gr<<std::endl;
 
-    std::cerr<<"ewwqe21uar: "<<&groupedEntities[gr]<<std::endl;
+    //std::cerr<<"ewwqe21uar: "<<&groupedEntities[gr]<<std::endl;
     //std::cout<<"Nose: "<<groupedEntities[gr][0]<<std::endl;//<<" : "<<groupedEntities[gr][0]->player<<std::endl;
     return static_cast<std::vector<Entity*> & >(groupedEntities[gr]);
   }
 
-  Entity& addEntity()
+  Entity* addEntity()
   {
     Entity* e = new Entity(this);
     //std::unique_ptr<Entity> uPtr{e};
     //entities.emplace_back(std::move(uPtr));
     entities.push_back(e);
-    return *e;
+    return e;
   }
 
 };

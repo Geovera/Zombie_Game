@@ -29,11 +29,15 @@ public:
     //zombiesNumber = rand() %10 +1;
     zombiesNumber =5*round;
     zombies.clear();
+    int posX = Game::Map->getComponent<TransformComponent>()->position.x;
     for(int i=0;i<zombiesNumber;i++)
     {
-      Entity& tempZombie(Game::manager.addEntity());
-      Entity* AnotherZombie = &tempZombie;
-      zombies.push_back(AnotherZombie);
+
+      Entity* tempZombie(Game::manager.addEntity());
+      //Entity* AnotherZombie = &tempZombie;
+      zombies.push_back(tempZombie);
+      zombies[i]->addComponent<TransformComponent>(posX,200.0f);
+      zombies[i]->addComponent<ColliderComponent>("zombie");
       //zombies[i]->SetZombie(true);
       zombies[i]->addGroup(groupZombies);
       //std::cout<<i<<": "<<&zombies[i]<<std::endl;
@@ -48,24 +52,22 @@ public:
     //std::cout<<"X1: "<<posX + 3000<<std::endl;
     if(timePassed<zombieDelay)
       return;
-    int posX = Game::Map.getComponent<TransformComponent>()->position.x;
+    int posX = Game::Map->getComponent<TransformComponent>()->position.x;
     if(currentIndex%2==0){
       //std::cout<<"Hello1: "<<currentIndex<<std::endl;
       //std::cout<<"Address: "<<zombies[currentIndex]<<std::endl;
       //std::cout<<"Map: "<<&Game::Map<<std::endl;
       //std::cout<<"NO"<<std::endl;
-      zombies[currentIndex]->addComponent<TransformComponent>(posX,200.0f);
+      zombies[currentIndex]->getComponent<TransformComponent>()->rev=1;
       //std::cout<<"Hola1"<<std::endl;0
       //std::cerr<<"Image: "<<
       zombies[currentIndex]->addComponent<SpriteComponent>("../images/Zombie-Test.png");
       zombies[currentIndex]->addComponent<KeyBoardController>();
-      zombies[currentIndex]->addComponent<ColliderComponent>("zombie");
     }
     else{
-      zombies[currentIndex]->addComponent<TransformComponent>(posX+3000.0f,200.0f,-1);
+      zombies[currentIndex]->getComponent<TransformComponent>()->rev=-1;
       zombies[currentIndex]->addComponent<SpriteComponent>("../images/Zombie-Test.png", SDL_FLIP_HORIZONTAL);
       zombies[currentIndex]->addComponent<KeyBoardController>();
-      zombies[currentIndex]->addComponent<ColliderComponent>("zombie");
     }
     currentIndex++;
     timePassed=0.0f;
