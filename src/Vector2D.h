@@ -29,6 +29,9 @@ public:
   Vector2D& operator*=(const Vector2D& vec){return this->Multiply(vec);}
   Vector2D& operator/=(const Vector2D& vec){return this->Divide(vec);}
 
+  Vector2D& operator*(const int& i){this->x*=i;return *this;}
+  Vector2D& Zero(){this->x =0; return *this;}
+
 
 };
 std::ostream& operator<<(std::ostream& o, const Vector2D& vec)

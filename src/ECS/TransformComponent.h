@@ -28,7 +28,7 @@ public:
     position.y=0.0f;
   }
 
-  TransformComponent(float x, float y, int Width=256,int Height=256, bool reversed=false)
+  TransformComponent(float x, float y, int direc =1 , int Width=256,int Height=256)
   {
     position.x = x;
     position.y =y;
@@ -37,8 +37,7 @@ public:
 
 
     //std::cout<<"Hello"<<std::endl;
-    if(reversed)
-      rev*=-1;
+    rev = direc;
     //std::cout<<"Hola"<<std::endl;
   }
 
@@ -55,11 +54,11 @@ public:
   void update() override
   {
     position.x+= velocity.x * speed;
-    if(position.x>0 && !(entity->player) && !(entity->zombie))
+    if(position.x>0 && entity->hasGroup(groupMap))
       position.x=0;
     if(position.x<-2360)
       position.x=-2360;
-    if(entity->zombie)
+    if(entity->hasGroup(groupZombies))
       position.x+=rev;
   }
 

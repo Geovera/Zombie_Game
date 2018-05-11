@@ -34,7 +34,8 @@ public:
       Entity& tempZombie(Game::manager.addEntity());
       Entity* AnotherZombie = &tempZombie;
       zombies.push_back(AnotherZombie);
-      zombies[i]->SetZombie(true);
+      //zombies[i]->SetZombie(true);
+      zombies[i]->addGroup(groupZombies);
       //std::cout<<i<<": "<<&zombies[i]<<std::endl;
       //std::cout<<i<<" temp: "<<&tempZombie<<std::endl;
     }
@@ -60,7 +61,7 @@ public:
       zombies[currentIndex]->addComponent<KeyBoardController>();
     }
     else{
-      zombies[currentIndex]->addComponent<TransformComponent>(posX+3000.0f,200.0f,256,256, true);
+      zombies[currentIndex]->addComponent<TransformComponent>(posX+3000.0f,200.0f,-1);
       zombies[currentIndex]->addComponent<SpriteComponent>("../images/Zombie-Test.png", SDL_FLIP_HORIZONTAL);
       zombies[currentIndex]->addComponent<KeyBoardController>();
     }

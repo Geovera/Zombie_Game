@@ -10,10 +10,20 @@
 
 #include "Map.h"
 #include <SDL2/SDL.h>
+#include <vector>
 #include "ECS/ECS.h"
 //#include <SDL2/SDL_image.h>
 
 class Map;
+class ColliderComponent;
+
+enum groupLabels : std::size_t{
+	groupMap,
+	groupPlayers,
+	groupZombies,
+	groupColliders,
+	groupHealthBar
+};
 
 class Game {
 public:
@@ -30,6 +40,7 @@ public:
 	static SDL_Event e;
 	static Manager manager;
 	static Entity& Map;
+	static std::vector<ColliderComponent*>colliders;
 	//static int SCREEN_WITDH;
 	//static int SCREEN_HEIGHT;
 
