@@ -8,9 +8,10 @@
 #include "SpriteComponent.h"
 #include "TransformComponent.h"
 #include "KeyBoardController.h"
+#include "HealthBarComponent.h"
 #include "ColliderComponent.h"
-#include "MagazineComponent.h"
 #include "PlayerKeyComponent.h"
+#include "MagazineComponent.h"
 //#include "CameraComponent.h"
 
 #endif //COMPONENTS_H_

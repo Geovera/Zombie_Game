@@ -1,6 +1,11 @@
-#include<"PlayerKeyComponent.h">
+#include "PlayerKeyComponent.h"
 
- void PlayerKeyComponent::ShotBullet()
- {
-   entity->getComponent<MagazineComponent>()->Shots();
- }
+void PlayerKeyComponent::ShotBullets()
+{
+  entity->getComponent<MagazineComponent>()->Shots();
+}
+
+void PlayerKeyComponent::Flip(SDL_RendererFlip asd)
+{
+  entity->getComponent<SpriteComponent>()->flipType=asd;
+}

@@ -89,11 +89,21 @@ void Game::init(const char* title, int xpos, int ypos,int width, int height, boo
 	//std::cout<<"Map initialize"<<std::endl;
 	Player.addComponent<TransformComponent>(180.0f,200.0f);
 	//std::cout<<"Hola"<<std::endl;
+<<<<<<< HEAD
 	Player.addComponent<SpriteComponent>("../images/Main-Character-x256.png");
 	Player.addComponent<ColliderComponent>("Player");
 	Player.addComponent<StateComponent>();
 	Player.addComponent<MagazineComponent>();
 	Player.addGroup(groupPlayers);
+=======
+	Player->addComponent<SpriteComponent>("../images/Main-Character-x256.png");
+	Player->addComponent<ColliderComponent>("Player");
+	Player->addComponent<MagazineComponent>();
+	Player->addComponent<PlayerKeyComponent>();
+	Player->addComponent<HealthBarComponent>();
+	Player->addGroup(groupPlayers);
+
+>>>>>>> Geovanny
 	//std::cout<<"Hola"<<std::endl;
 	Player.setPlayer(true);
 	//std::cout<<"Hola"<<std::endl;
