@@ -5,7 +5,7 @@
 
 #include "Components.h"
 
-class PLAYERKEYCOMPONENT_H_ : public Component
+class PlayerKeyComponent : public Component
 {
 public:
   bool selfState = true;
@@ -26,6 +26,9 @@ public:
           break;
         case SDLK_RIGHT:
           selfState = false;
+          break;
+        case SDLK_SPACE:
+          entity->getComponent<Magazine>()->Shots();
           break;
         default:
           break;
