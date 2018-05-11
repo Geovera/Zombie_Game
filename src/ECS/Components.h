@@ -9,6 +9,7 @@
 #include "TransformComponent.h"
 #include "KeyBoardController.h"
 #include "ColliderComponent.h"
+#include "PlayerKeyComponent.h"
 //#include "CameraComponent.h"
 
 #endif //COMPONENTS_H_

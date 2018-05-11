@@ -5,11 +5,11 @@
 #include<SDL2/SDL.h>
 #include"ECS/Components.h"
 
-class magazineComponent: public Component
+class MagazineComponent: public Component
 {
 public:
 
-  Magazine()
+  MagazineComponent()
   {
     shootDelay = 1.0;
     timePassed = 0.0;
@@ -47,7 +47,7 @@ public:
   }
   void update() override{
     timePassed += 0.01;
-    
+
   }
 
 

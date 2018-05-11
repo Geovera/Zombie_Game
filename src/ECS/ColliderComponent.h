@@ -37,7 +37,7 @@ public:
   {
     collider.x = (int)transform->position.x;
     collider.y = (int)transform->position.y;
-    collider.w = transform->width * transform->scale;
+    collider.w = transform->width * transform->scale -180;
     collider.h = transform->height * transform->scale;
 
     Game::colliders.push_back(this);

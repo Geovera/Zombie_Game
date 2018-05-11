@@ -91,6 +91,7 @@ void Game::init(const char* title, int xpos, int ypos,int width, int height, boo
 	//std::cout<<"Hola"<<std::endl;
 	Player.addComponent<SpriteComponent>("../images/Main-Character-x256.png");
 	Player.addComponent<ColliderComponent>("Player");
+	Player.addComponent<StateComponent>();
 	Player.addGroup(groupPlayers);
 	//std::cout<<"Hola"<<std::endl;
 	Player.setPlayer(true);
@@ -136,6 +137,18 @@ void Game::update()
 	Game::manager.refresh();
 	Game::manager.update();
 	zombieManager->update();
+<<<<<<< HEAD
+=======
+
+	for(auto cc : colliders){
+		if(Collision::AABB(Player.getComponent<ColliderComponent>(), cc))
+		{
+			if(cc->tag=="zombie")
+				cc->entity->getComponent<TransformComponent>()->position.x-=1;
+		}
+	}
+	//Player.getComponent<TransformComponent>()->scale=1;
+>>>>>>> ec4ad2982c122a206003725065419d311e9538f0
 /*Game::Mapa->dest.x =Player.getComponent<TransformComponent>().position.x *-4;
 	if(Game::Mapa->dest.x>0){
 		Game::Mapa->dest.x =0;
@@ -168,6 +181,9 @@ void Game::render()
 		p->draw();
 	for(auto& z : zombies)
 		z->draw();
+	for(auto& b : magazine)
+		b->draw();
+
 
 	SDL_RenderPresent(renderer);
 
