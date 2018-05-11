@@ -34,11 +34,7 @@ public:
           selfState = true;
           break;
         case SDLK_SPACE:
-<<<<<<< HEAD
-          ShotBullet();
-=======
           ShotBullets();
->>>>>>> 7c6fd11219c26d7ecc0406253436a93d363cb1c3
           break;
         default:
           break;
