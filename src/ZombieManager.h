@@ -59,11 +59,13 @@ public:
       //std::cerr<<"Image: "<<
       zombies[currentIndex]->addComponent<SpriteComponent>("../images/Zombie-Test.png");
       zombies[currentIndex]->addComponent<KeyBoardController>();
+      zombies[currentIndex]->addComponent<ColliderComponent>("zombie");
     }
     else{
       zombies[currentIndex]->addComponent<TransformComponent>(posX+3000.0f,200.0f,-1);
       zombies[currentIndex]->addComponent<SpriteComponent>("../images/Zombie-Test.png", SDL_FLIP_HORIZONTAL);
       zombies[currentIndex]->addComponent<KeyBoardController>();
+      zombies[currentIndex]->addComponent<ColliderComponent>("zombie");
     }
     currentIndex++;
     timePassed=0.0f;

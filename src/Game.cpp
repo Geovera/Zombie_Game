@@ -91,6 +91,7 @@ void Game::init(const char* title, int xpos, int ypos,int width, int height, boo
 	//std::cout<<"Hola"<<std::endl;
 	Player.addComponent<SpriteComponent>("../images/Main-Character-x256.png");
 	Player.addComponent<ColliderComponent>("Player");
+	Player.addComponent<StateComponent>();
 	Player.addGroup(groupPlayers);
 	//std::cout<<"Hola"<<std::endl;
 	Player.setPlayer(true);
@@ -141,7 +142,7 @@ void Game::update()
 		if(Collision::AABB(Player.getComponent<ColliderComponent>(), cc))
 		{
 			if(cc->tag=="zombie")
-				cc->entity->getComponent<TransformComponent>()->speed*=-7;
+				cc->entity->getComponent<TransformComponent>()->position.x-=1;
 		}
 	}
 	//Player.getComponent<TransformComponent>()->scale=1;
@@ -160,6 +161,7 @@ void Game::update()
 std::vector<Entity*>& back(Game::manager.getGroup(groupMap));
 std::vector<Entity*>& players(Game::manager.getGroup(groupPlayers));
 std::vector<Entity*>& zombies(Game::manager.getGroup(groupZombies));
+std::vector<Entity*>& magazine(Game::manager.getGroup(groupBullets));
 //auto bar(manager.getGroup(groupHealthBar));
 
 void Game::render()
@@ -176,6 +178,9 @@ void Game::render()
 		p->draw();
 	for(auto& z : zombies)
 		z->draw();
+	for(auto& b : magazine)
+		b->draw();
+
 
 	SDL_RenderPresent(renderer);
 

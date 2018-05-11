@@ -21,6 +21,7 @@ enum groupLabels : std::size_t{
 	groupMap,
 	groupPlayers,
 	groupZombies,
+	groupBullets,
 	groupColliders,
 	groupHealthBar
 };
