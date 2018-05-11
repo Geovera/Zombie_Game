@@ -11,8 +11,12 @@ public:
 
   Magazine()
   {
+    shootDelay = 1.0;
+    timePassed = 0.0;
+    currentIndex = 0;
   Clip();
   }
+
   void Clip(){
     for(int i = 0; i <30; i++)
     {
@@ -26,7 +30,7 @@ public:
   {
     int posX = entity->getComponent<TransformComponent>().position.x;
 
-    if(timePassed<zombieDelay)
+    if(timePassed<shootDelay)
       return;
     if(entity->getComponent<selfState>==false){
       Magazine[currentIndex]->addComponent<TransformComponent>(posX,200.0f,5);
@@ -41,11 +45,16 @@ public:
     currentIndex++;
     timePassed=0.0f;
   }
-  void update() override{}
+  void update() override{
+    timePassed += 0.01;
+    
+  }
 
 
 private:
-
+  double shootDelay;
+  double timePassed;
+  unsigned int currentIndex;
   std::vector<Entity*> Magazine;
 
 

@@ -136,7 +136,6 @@ void Game::update()
 	Game::manager.refresh();
 	Game::manager.update();
 	zombieManager->update();
-
 /*Game::Mapa->dest.x =Player.getComponent<TransformComponent>().position.x *-4;
 	if(Game::Mapa->dest.x>0){
 		Game::Mapa->dest.x =0;
