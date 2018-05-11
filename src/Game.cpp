@@ -93,7 +93,9 @@ void Game::init(const char* title, int xpos, int ypos,int width, int height, boo
 	Player->addComponent<ColliderComponent>("Player");
 	Player->addComponent<MagazineComponent>();
 	Player->addComponent<PlayerKeyComponent>();
+	Player->addComponent<HealthBarComponent>();
 	Player->addGroup(groupPlayers);
+
 	//std::cout<<"Hola"<<std::endl;
 	Player->setPlayer(true);
 	//std::cout<<"Hola"<<std::endl;
