@@ -19,33 +19,29 @@ public:
     Entity& Bullet(Game::manager.addEntity());
     Entity* AnotherBullet = &Bullet;
     Magazine.push_back(AnotherBullet);
-    Magazine[i]->SetZombie(true);
+    Magazine[i]->addGroup(groupBullets);
     }
   }
   void Shots()
   {
-    int posX = Game::Map.getComponent<TransformComponent>().position.x;
-    //std::cout<<"X: "<<posX<<std::endl;
-    //std::cout<<"X1: "<<posX + 1500<<std::endl;
+    int posX = entity->getComponent<TransformComponent>().position.x;
+
     if(timePassed<zombieDelay)
       return;
-    if(currentIndex%2==0){
-      zombies[currentIndex]->addComponent<TransformComponent>(posX,200.0f,false);
-      zombies[currentIndex]->addComponent<SpriteComponent>("../images/Zombie-Test.png",256,256);
-      zombies[currentIndex]->addComponent<KeyBoardController>();
+    if(entity->getComponent<selfState>==false){
+      Magazine[currentIndex]->addComponent<TransformComponent>(posX,200.0f,5);
+      Magazine[currentIndex]->addComponent<SpriteComponent>("../images/Zombie-Test.png");
+      Magazine[currentIndex]->addComponent<KeyBoardController>();
     }
     else{
-      zombies[currentIndex]->addComponent<TransformComponent>(posX+1500.0f,200.0f,true);
-      zombies[currentIndex]->addComponent<SpriteComponent>("../images/Zombie-Test.png",256,256,SDL_FLIP_HORIZONTAL);
-      zombies[currentIndex]->addComponent<KeyBoardController>();
+      Magazine[currentIndex]->addComponent<TransformComponent>(posX,200.0f,-5);
+      Magazine[currentIndex]->addComponent<SpriteComponent>("../images/Zombie-Test.png",SDL_FLIP_HORIZONTAL);
+      Magazine[currentIndex]->addComponent<KeyBoardController>();
     }
     currentIndex++;
     timePassed=0.0f;
   }
-  void bulletUpdate()
-  {
-    float
-  }
+  void update() override{}
 
 
 private:

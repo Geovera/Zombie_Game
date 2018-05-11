@@ -136,7 +136,7 @@ void Game::update()
 	Game::manager.refresh();
 	Game::manager.update();
 	zombieManager->update();
-	Magazine.bulletUpdate();
+
 /*Game::Mapa->dest.x =Player.getComponent<TransformComponent>().position.x *-4;
 	if(Game::Mapa->dest.x>0){
 		Game::Mapa->dest.x =0;
@@ -152,6 +152,7 @@ void Game::update()
 std::vector<Entity*>& back(Game::manager.getGroup(groupMap));
 std::vector<Entity*>& players(Game::manager.getGroup(groupPlayers));
 std::vector<Entity*>& zombies(Game::manager.getGroup(groupZombies));
+std::vector<Entity*>& magazine(Game::manager.getGroup(groupBullets));
 //auto bar(manager.getGroup(groupHealthBar));
 
 void Game::render()
