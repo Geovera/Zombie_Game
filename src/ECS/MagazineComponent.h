@@ -18,6 +18,7 @@ public:
   }
 
   void Clip(){
+    Magazine.clear();
     for(int i = 0; i <30; i++)
     {
     int posX = entity->getComponent<TransformComponent>()->position.x;
