@@ -18,6 +18,7 @@ public:
   }
 
   void Clip(){
+    currentIndex=0;
     Magazine.clear();
     for(int i = 0; i <30; i++)
     {
@@ -29,6 +30,7 @@ public:
     Magazine[i]->addComponent<ColliderComponent>("bullet");
     Magazine[i]->addGroup(groupBullets);
     }
+
   }
   bool checkState();
   void Shots();
