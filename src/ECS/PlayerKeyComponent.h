@@ -12,6 +12,7 @@ class PlayerKeyComponent : public Component
 public:
   bool selfState = true;
   void ShotBullet();
+  void MagClip();
   void init() override
   {
     selfState = true;
@@ -35,6 +36,9 @@ public:
           break;
         case SDLK_SPACE:
           ShotBullets();
+          break;
+        case SDLK_r:
+          MagClip();
           break;
         default:
           break;
