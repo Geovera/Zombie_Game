@@ -82,14 +82,14 @@ void Game::init(const char* title, int xpos, int ypos,int width, int height, boo
 	std::cout<<"Map initialize: "<<&Map<<std::endl;
 	std::cerr<<"Transform: "<<&asd;*/
 
-	Game::Map->addComponent<SpriteComponent>("../images/BGZombieCC.png", SDL_FLIP_NONE);
+	Game::Map->addComponent<SpriteComponent>("../images/BGZombieCC-2.png", SDL_FLIP_NONE);
 	//std::cout<<"Map initialize: "<<&Map<<std::endl;
 	Game::Map->addComponent<KeyBoardController>();
 	Game::Map->addGroup(groupMap);
 	//std::cout<<"Map initialize"<<std::endl;
 	Player->addComponent<TransformComponent>(180.0f,200.0f);
 	//std::cout<<"Hola"<<std::endl;
-	Player->addComponent<SpriteComponent>("../images/Main-Character-x256.png");
+	Player->addComponent<SpriteComponent>("../images/Main-Character-x256-3.png",4,200);
 	Player->addComponent<ColliderComponent>("Player");
 	Player->addComponent<MagazineComponent>();
 	Player->addComponent<PlayerKeyComponent>();

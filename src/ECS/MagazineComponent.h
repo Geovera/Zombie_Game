@@ -24,7 +24,7 @@ public:
     Entity* Bullet(Game::manager.addEntity());
     //Entity* AnotherBullet = &Bullet;
     Magazine.push_back(Bullet);
-    Magazine[i]->addComponent<TransformComponent>(-5000.0f,200.0f);
+    Magazine[i]->addComponent<TransformComponent>(-5000.0f,100.0f, 64,64);
     Magazine[i]->addComponent<ColliderComponent>("bullet");
     Magazine[i]->addGroup(groupBullets);
     }
