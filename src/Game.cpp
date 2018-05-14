@@ -154,16 +154,16 @@ void Game::update()
 		//std::cerr<<"BB: "<<bb->getComponent<ColliderComponent>()<<std::endl;
 		for(auto cc : colliders)
 		{
+			if(cc->tag!="zombie")
+				continue;
 			//std::cerr<<"Break0: "<<std::endl;
 			if(Collision::AABB(bb->getComponent<ColliderComponent>()->collider,cc->collider))
 			{
-				if(cc->tag=="zombie")
-				{
 					cc->entity->destroy();
 					bb->destroy();
 					break;
 					//return;
-				}
+
 			}
 			//std::cerr<<"Break: "<<std::endl;
 		}
