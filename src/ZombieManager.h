@@ -56,12 +56,12 @@ public:
       zombies[currentIndex]->addComponent<TransformComponent>(posX,200.0f);
       //std::cout<<"Hola1"<<std::endl;0
       //std::cerr<<"Image: "<<
-      zombies[currentIndex]->addComponent<SpriteComponent>("../images/Zombie-Test.png");
+      zombies[currentIndex]->addComponent<SpriteComponent>("../images/Zombie-x256-3.png", 4, 200);
       zombies[currentIndex]->addComponent<KeyBoardController>();
     }
     else{
       zombies[currentIndex]->addComponent<TransformComponent>(posX+3000.0f,200.0f,256,256, true);
-      zombies[currentIndex]->addComponent<SpriteComponent>("../images/Zombie-Test.png", SDL_FLIP_HORIZONTAL);
+      zombies[currentIndex]->addComponent<SpriteComponent>("../images/Zombie-x256-3.png", 4, 200, SDL_FLIP_HORIZONTAL);
       zombies[currentIndex]->addComponent<KeyBoardController>();
     }
     currentIndex++;
