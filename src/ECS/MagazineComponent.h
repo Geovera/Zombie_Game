@@ -37,8 +37,11 @@ public:
   void update() override{
     timePassed += 0.01;
     for(auto bullet : Magazine)
+    {
+      std::cerr<<"Before"<<std::endl;
       bullet->update();
-
+      std::cerr<<"After"<<std::endl;
+    }
   }
   std::vector<Entity*> Magazine;
 
