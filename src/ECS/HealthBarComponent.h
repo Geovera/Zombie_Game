@@ -9,31 +9,61 @@
 #define HEALTHBARCOMPONENT_H_
 
 #include "Components.h"
+#include "../Game.h"
+#include "../textureManager.h"
 #include "TransformComponent.h"
 #include <SDL2/SDL.h>
 
 
 class HealthBarComponent : public Component
 {
+private:
+	float health = 1.0f;
+	float hitDelay = 1.0f;
+	float timePassed = 0.0f;
 public:
 	//TransformComponent* transformHealth;
-	SDL_Rect m_rect;
+	SDL_Rect src_rect, m_rect, green_rect;
+	SDL_Texture* red;
+	SDL_Texture* green;
 
 	HealthBarComponent()
 	{
 		SDL_Rect rect;
-		rect.x=10;
+		rect.x=20;
 		rect.y=10;
 		rect.w=200;
 		rect.h=50;
 		m_rect = rect;
-		SDL_SetRenderDrawColor(Game::renderer,255,0,0,0);
+		src_rect=rect;
+		green_rect=rect;
 		std::cout<<"DrawColor good"<<std::endl;
-		SDL_RenderFillRect(Game::renderer,&rect);
 		std::cout<<"FllRect good"<<std::endl;
-		SDL_RenderPresent(Game::renderer);
 		std::cout<<"RenderPresent good"<<std::endl;
+		red=textureManager::loadTexture("../images/RedBar.png");
+		green=textureManager::loadTexture("../images/GreenBar.png");
 
+
+	}
+
+	void Hit(Game& game)
+	{
+		if(timePassed>hitDelay){
+			std::cerr<<"Helath:"<<health<<std::endl;
+			std::cerr<<"Width: "<<green_rect.w<<std::endl;
+			health-=0.25f;
+			green_rect.w=200*health;
+			timePassed=0.0f;
+			if(health==0.0f)
+				{
+					std::cerr<<"Game Over!"<<std::endl;
+				 game.setRun(false);
+				}
+		}
+	}
+	void update() override
+	{
+		timePassed+=0.01f;
 	}
 
 	SDL_Color color(Uint8 r, Uint8 g, Uint8 b, Uint8 a)
@@ -42,22 +72,7 @@ public:
 	   return col;
 	}
 
-	HealthBarComponent(int x, int y, int w, int h,float Percent, SDL_Color FGColor, SDL_Color BGColor)
-	{
-		Percent = Percent > 1.f ? 1.f : Percent < 0.f ? 0.f : Percent;
-		   SDL_Color old;
-		   SDL_GetRenderDrawColor(Game::renderer, &old.r, &old.g, &old.g, &old.a);
-		   SDL_Rect bgrect = { x, y, w, h };
-		   SDL_SetRenderDrawColor(Game::renderer, BGColor.r, BGColor.g, BGColor.b, BGColor.a);
-		   SDL_RenderFillRect(Game::renderer, &bgrect);
-		   SDL_SetRenderDrawColor(Game::renderer, FGColor.r, FGColor.g, FGColor.b, FGColor.a);
-		   int pw = (int)((float)w * Percent);
-		   int px = x + (w - pw);
-		   SDL_Rect fgrect = { px, y, pw, h };
-		   SDL_RenderFillRect(Game::renderer, &fgrect);
-		   SDL_SetRenderDrawColor(Game::renderer, old.r, old.g, old.b, old.a);
-		  // SDL_RenderPresent(Game::renderer);
-	}
+
 
 
 
@@ -68,12 +83,14 @@ public:
 	}*/
 
 	//if collision then change shape of rect to -25%
-	 void renderBar()
+	 void draw() override
 	 {
-		HealthBarComponent(10,10,100,50, 1.0f,color(0,255,0,255), color(0,255,0,255) );
+		 textureManager::Draw(red,src_rect,m_rect, SDL_FLIP_NONE);
+		 textureManager::Draw(green,src_rect,green_rect, SDL_FLIP_NONE);
+		//HealthBarComponent(10,10,100,50, 1.0f,color(0,255,0,255), color(0,255,0,255) );
 		//SDL_RenderPresent(Game::renderer);
 		//SDL_SetRenderDrawColor(Game::renderer,255,0,0,0);
-		std::cout<<"DrawColor good : "<<std::endl;
+		//std::cout<<"DrawColor good : "<<std::endl;
 		//SDL_RenderFillRect(Game::renderer,&m_rect);
 	 }
 

@@ -145,8 +145,10 @@ void Game::update()
 	for(auto& cc : colliders){
 		if(Collision::AABB(*Player->getComponent<ColliderComponent>(), *cc))
 		{
-			if(cc->tag=="zombie")
+			if(cc->tag=="zombie"){
 				cc->entity->getComponent<TransformComponent>()->position.x-=1;
+				Player->getComponent<HealthBarComponent>()->Hit(*this);
+			}
 		}
 	}
 	for(auto& bb : Player->getComponent<MagazineComponent>()->Magazine)

@@ -9,3 +9,8 @@ void PlayerKeyComponent::Flip(SDL_RendererFlip asd)
 {
   entity->getComponent<SpriteComponent>()->flipType=asd;
 }
+
+void PlayerKeyComponent::MagClip()
+{
+  entity->getComponent<MagazineComponent>()->Clip();
+}
