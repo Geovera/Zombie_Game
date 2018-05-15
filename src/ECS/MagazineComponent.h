@@ -14,7 +14,7 @@ public:
     shootDelay = 1.0;
     timePassed = 0.0;
     currentIndex = 0;
-  Clip();
+    Clip();
   }
 
   void Clip(){
@@ -38,9 +38,9 @@ public:
     timePassed += 0.01;
     for(auto bullet : Magazine)
     {
-      std::cerr<<"Before"<<std::endl;
+      //std::cerr<<"Before"<<std::endl;
       bullet->update();
-      std::cerr<<"After"<<std::endl;
+      //std::cerr<<"After"<<std::endl;
     }
   }
   std::vector<Entity*> Magazine;

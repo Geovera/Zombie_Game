@@ -82,14 +82,14 @@ void Game::init(const char* title, int xpos, int ypos,int width, int height, boo
 	std::cout<<"Map initialize: "<<&Map<<std::endl;
 	std::cerr<<"Transform: "<<&asd;*/
 
-	Game::Map->addComponent<SpriteComponent>("../images/BGZombieCC.png", SDL_FLIP_NONE);
+	Game::Map->addComponent<SpriteComponent>("../images/BGZombieCC-2.png", SDL_FLIP_NONE);
 	//std::cout<<"Map initialize: "<<&Map<<std::endl;
 	Game::Map->addComponent<KeyBoardController>();
 	Game::Map->addGroup(groupMap);
 	//std::cout<<"Map initialize"<<std::endl;
 	Player->addComponent<TransformComponent>(180.0f,200.0f);
 	//std::cout<<"Hola"<<std::endl;
-	Player->addComponent<SpriteComponent>("../images/Main-Character-x256.png");
+	Player->addComponent<SpriteComponent>("../images/Main-Character-x256-3.png",4,200);
 	Player->addComponent<ColliderComponent>("Player");
 	Player->addComponent<MagazineComponent>();
 	Player->addComponent<PlayerKeyComponent>();
@@ -143,12 +143,34 @@ void Game::update()
 	for(auto& cc : colliders){
 		if(Collision::AABB(*Player->getComponent<ColliderComponent>(), *cc))
 		{
-			if(cc->tag=="zombie")
+			if(cc->tag=="zombie"){
 				cc->entity->getComponent<TransformComponent>()->position.x-=1;
+				Player->getComponent<HealthBarComponent>()->Hit(*this);
+			}
 		}
 	}
-	//Player->getComponent<TransformComponent>()->scale=1;
-/*Game::Mapa->dest.x =Player->getComponent<TransformComponent>().position.x *-4;
+	for(auto& bb : Player->getComponent<MagazineComponent>()->Magazine)
+	{
+		//std::cerr<<"BB: "<<bb->getComponent<ColliderComponent>()<<std::endl;
+		for(auto cc : colliders)
+		{
+			if(cc->tag!="zombie")
+				continue;
+			//std::cerr<<"Break0: "<<std::endl;
+			if(Collision::AABB(bb->getComponent<ColliderComponent>()->collider,cc->collider))
+			{
+					cc->entity->destroy();
+					bb->destroy();
+					break;
+					//return;
+
+			}
+			//std::cerr<<"Break: "<<std::endl;
+		}
+	}
+
+	//Player.getComponent<TransformComponent>()->scale=1;
+/*Game::Mapa->dest.x =Player.getComponent<TransformComponent>().position.x *-4;
 	if(Game::Mapa->dest.x>0){
 		Game::Mapa->dest.x =0;
 		Player->getComponent<TransformComponent>().position.x=0;

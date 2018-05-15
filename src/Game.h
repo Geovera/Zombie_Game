@@ -44,6 +44,7 @@ public:
 	static std::vector<ColliderComponent*>colliders;
 	//static int SCREEN_WITDH;
 	//static int SCREEN_HEIGHT;
+	void setRun(bool set){running = set;}
 
 	bool isRunning(){return running;}
 

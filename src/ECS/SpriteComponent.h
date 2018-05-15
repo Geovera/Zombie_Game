@@ -14,10 +14,14 @@ private:
   TransformComponent* transform;
   SDL_Rect srcRect, destRect;
   SDL_Texture* texture;
+
+  bool animated = false;
+  int frames = 0;
+  int speed = 100;
+
 public:
   SDL_RendererFlip flipType;
-
-  SpriteComponent();
+  SpriteComponent() = default;
   SpriteComponent(const char* path, SDL_RendererFlip flipT= SDL_FLIP_NONE){
     //std::cerr<<"before transform: "<<entity->getComponent<TransformComponent>()<<std::endl;
     //if(!entity->hasComponent<TransformComponent>())
@@ -30,6 +34,23 @@ public:
     flipType=flipT;
     std::cout<<path<<" : "<<flipType<<std::endl;
   }
+  SpriteComponent(const char* path,int nFrames, int mSpeed, SDL_RendererFlip flipT= SDL_FLIP_NONE){
+      //std::cerr<<"before transform: "<<entity->getComponent<TransformComponent>()<<std::endl;
+      //if(!entity->hasComponent<TransformComponent>())
+      //  entity->addComponent<TransformComponent>(0.0f,0.0f);
+      //transform = entity->getComponent<TransformComponent>();
+      //std::cerr<<"Begin: "<<path<<std::endl;
+	  animated = true;
+	  frames = nFrames;
+	  speed = mSpeed;
+      setTex(path);
+
+
+      flipType=flipT;
+      std::cout<<path<<" : "<<flipType<<std::endl;
+    }
+
+
   virtual ~SpriteComponent(){
     SDL_DestroyTexture(texture);
   }
@@ -53,6 +74,11 @@ public:
   }
   void update() override
   {
+	if (animated)
+	{
+		srcRect.x = srcRect.w * static_cast<int>((SDL_GetTicks() / speed) % frames);
+	}
+
     destRect.x = (int)transform->position.x;
     destRect.y = (int)transform->position.y;
     destRect.w = transform->width*transform->scale;
