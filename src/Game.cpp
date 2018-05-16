@@ -10,6 +10,8 @@
 #include "ECS/Components.h"
 #include "ZombieManager.h"
 #include "Collision.h"
+//#include "leaker.h"
+
 //#include "ECS/KeyBoardController.h"
 #include "Vector2D.h"
 #include <iostream>
@@ -24,7 +26,7 @@ Entity* Game::Map(Game::manager.addEntity());
 ZombieManager* zombieManager;
 //Entity& Game::Map=mapa;
 auto Player(Game::manager.addEntity());
-auto Enemy(Game::manager.addEntity());
+//auto Enemy(Game::manager.addEntity());
 //auto& Ally(Game::manager.addEntity());
 
 
@@ -101,7 +103,8 @@ void Game::init(const char* title, int xpos, int ypos,int width, int height, boo
 	//Player.addComponent<KeyBoardController>();
 
 	zombieManager = new ZombieManager();
-
+	Game::manager.m_game=this;
+/*
 	//Test
 	Enemy->addComponent<TransformComponent>(1500.0f,200.0f,-1);
 	Enemy->addComponent<SpriteComponent>("imagesPlaceHolder/AnotherPlayer.png");
@@ -138,6 +141,7 @@ void Game::update()
 {
 	Game::manager.refresh();
 	Game::manager.update();
+	zombieManager->refresh();
 	zombieManager->update();
 
 	//std::cerr<<"b1: "<<Player->getComponent<MagazineComponent>()->Magazine[0]->getComponent<ColliderComponent>()<<std::endl;

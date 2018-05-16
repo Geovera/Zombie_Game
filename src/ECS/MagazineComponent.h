@@ -4,6 +4,8 @@
 #include<vector>
 #include<SDL2/SDL.h>
 #include"Components.h"
+//#include "../leaker.h"
+
 
 class MagazineComponent: public Component
 {
@@ -24,7 +26,6 @@ public:
     {
     int posX = entity->getComponent<TransformComponent>()->position.x;
     Entity* Bullet(Game::manager.addEntity());
-    //Entity* AnotherBullet = &Bullet;
     Magazine.push_back(Bullet);
     Magazine[i]->addComponent<TransformComponent>(-5000.0f,200.0f);
     Magazine[i]->addComponent<ColliderComponent>("bullet");

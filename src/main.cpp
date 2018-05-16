@@ -9,6 +9,7 @@
 #include <iostream>
 #include <SDL2/SDL.h>
 #include "Game.h"
+//#include "leaker.h"
 using namespace std;
 
 const int width = 640;

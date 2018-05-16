@@ -10,6 +10,8 @@
 
 #include "Components.h"
 #include "../Game.h"
+//#include "../leaker.h"
+
 #include "../textureManager.h"
 #include "TransformComponent.h"
 #include <SDL2/SDL.h>

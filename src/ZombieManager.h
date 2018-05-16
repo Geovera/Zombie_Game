@@ -19,15 +19,17 @@ public:
     round=0;
     roundOver=true;
     timePassed =0.0;
-    zombieDelay = 2.0;
+    zombieDelay = 1.0;
     currentIndex =0;
+    maxRound=1;
   }
   void startNewRound()
   {
     round++;
+    currentIndex=0;
     std::cout<<"Round: "<<round<<std::endl;
     //zombiesNumber = rand() %10 +1;
-    zombiesNumber =5*round;
+    zombiesNumber +=round;
     zombies.clear();
     for(int i=0;i<zombiesNumber;i++)
     {
@@ -66,7 +68,7 @@ public:
     }
     else{
       zombies[currentIndex]->getComponent<TransformComponent>()->rev=1;
-      zombies[currentIndex]->getComponent<TransformComponent>()->position.x=posX+3000;
+      zombies[currentIndex]->getComponent<TransformComponent>()->position.x=posX+1500;
       zombies[currentIndex]->getComponent<TransformComponent>()->position.y=200;
       zombies[currentIndex]->addComponent<SpriteComponent>("../images/Zombie-x256-2.png", SDL_FLIP_HORIZONTAL);
       zombies[currentIndex]->addComponent<KeyBoardController>();
@@ -74,8 +76,16 @@ public:
     currentIndex++;
     timePassed=0.0f;
   }
+  void endGame()
+  {
+    std::cout<<"Game Over!\nYou Win!"<<std::endl;
+    Game::manager.m_game->setRun(false);
+  }
   void update()
   {
+    if(round==maxRound && roundOver)
+        endGame();
+    checkForZombies();
     if(roundOver)
       startNewRound();
     if(currentIndex<zombiesNumber){
@@ -83,7 +93,23 @@ public:
       spawnZombie();
     }
     //std::cout<<(begin - clock_t())/(double)CLOCKS_PER_SEC<<std::endl;
-
+  }
+  void refresh()
+  {
+    zombies.erase(std::remove_if(std::begin(zombies),std::end(zombies),
+      [](Entity* mEntity)
+    {
+      return !mEntity ->isActive();
+    }),
+      std::end(zombies));
+  }
+  void checkForZombies()
+  {
+    if(zombies.size()==0)
+    {
+      roundOver=true;
+      std::cerr<<"Round Over"<<std::endl;
+    }
   }
 /*
 zombies[i].addComponent<TransformComponent>();
@@ -98,6 +124,7 @@ private:
   double zombieDelay;
   unsigned int currentIndex;
   bool roundOver;
+  unsigned int maxRound;
 
 };
 

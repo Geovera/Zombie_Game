@@ -10,9 +10,13 @@
 #include <bitset>
 #include <array>
 
+//#include "../leaker.h"
+
+
 class Component;
 class Entity;
 class Manager;
+class Game;
 using ComponentID = std::size_t;
 using Group = std::size_t;
 
@@ -55,7 +59,6 @@ public:
 class Entity
 {
 private:
-  Manager* manager;
   bool active = true;
   int currentIndex=0;
   std::vector<Component*> components;
@@ -65,6 +68,7 @@ private:
   GroupBitSet groupBitSet;
 
 public:
+  Manager* manager;
 
   Entity(Manager* mManager) : manager(mManager){}
 
@@ -120,9 +124,11 @@ class Manager
 {
 private:
   //std::vector<std::unique_ptr<Entity>> entities;
-  std::vector<Entity*> entities;
   std::array<std::vector<Entity*>, maxGroup > groupedEntities;
+  std::vector<Entity*> entities;
 public:
+  Game* m_game;
+
   void update()
   {
     for(auto& e: entities ) e->update();

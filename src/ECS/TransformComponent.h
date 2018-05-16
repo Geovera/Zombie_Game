@@ -6,6 +6,8 @@
 #include "Components.h"
 #include "../Vector2D.h"
 #include "../Game.h"
+//#include "../leaker.h"
+
 #include <iostream>
 
 class TransformComponent : public Component

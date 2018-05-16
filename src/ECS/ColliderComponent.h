@@ -3,6 +3,8 @@
 #ifndef COLLIDERCOMPONENT_H_
 #define COLLIDERCOMPONENT_H_
 
+//#include "../leaker.h"
+
 #include "../Game.h"
 #include "Components.h"
 #include "../Vector2D.h"

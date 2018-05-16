@@ -4,6 +4,8 @@
 #ifndef SPRITECOMPONENT_H_
 #define SPRITECOMPONENT_H_
 #include "Components.h"
+//#include "../leaker.h"
+
 #include "TransformComponent.h"
 
 

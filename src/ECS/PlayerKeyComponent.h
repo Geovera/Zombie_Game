@@ -4,6 +4,8 @@
 #define PLAYERKEYCOMPONENT_H_
 
 #include "Components.h"
+//#include "../leaker.h"
+
 
 class PlayerKeyComponent : public Component
 {
@@ -15,7 +17,6 @@ public:
     selfState = true;
   }
   void ShotBullets();
-  void MagClip();
   void Flip(SDL_RendererFlip asd);
 
   void update() override
@@ -34,10 +35,6 @@ public:
           break;
         case SDLK_SPACE:
           ShotBullets();
-          break;
-        case SDLK_r:
-          MagClip();
-          std::cerr<<"SHot"<<std::endl;
           break;
         default:
           break;

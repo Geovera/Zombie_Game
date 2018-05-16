@@ -1,4 +1,6 @@
 #include "MagazineComponent.h"
+//#include "../leaker.h"
+
 
 bool MagazineComponent::checkState()
 {
@@ -7,6 +9,11 @@ bool MagazineComponent::checkState()
 
 void MagazineComponent::Shots()
 {
+  if(currentIndex>29)
+  {
+    std::cout<<"No ammo"<<std::endl;
+    return;
+  }
   int posX = entity->getComponent<TransformComponent>()->position.x;
 
   //if(timePassed<shootDelay)

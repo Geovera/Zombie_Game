@@ -1,4 +1,6 @@
 #include "PlayerKeyComponent.h"
+//#include "../leaker.h"
+
 
 void PlayerKeyComponent::ShotBullets()
 {
@@ -8,9 +10,4 @@ void PlayerKeyComponent::ShotBullets()
 void PlayerKeyComponent::Flip(SDL_RendererFlip asd)
 {
   entity->getComponent<SpriteComponent>()->flipType=asd;
-}
-
-void PlayerKeyComponent::MagClip()
-{
-  entity->getComponent<MagazineComponent>()->Clip();
 }
