@@ -150,7 +150,7 @@ void Game::update()
 		if(Collision::AABB(Player->getComponent<ColliderComponent>(), *cc))
 		{
 			if(cc->tag=="zombie"){
-				if((cc->entity->getComponent<SpriteComponent>().flipType=SDL_FLIP_NONE))
+				if((cc->entity->getComponent<SpriteComponent>().flipType==SDL_FLIP_NONE))
 					cc->entity->getComponent<TransformComponent>().position.x-=1;
 				else
 					cc->entity->getComponent<TransformComponent>().position.x+=1;
@@ -168,6 +168,7 @@ void Game::update()
 			//std::cerr<<"Break0: "<<std::endl;
 			if(Collision::AABB(bb->getComponent<ColliderComponent>().collider,cc->collider))
 			{
+					cc->active=false;
 					cc->entity->destroy();
 					bb->destroy();
 					break;

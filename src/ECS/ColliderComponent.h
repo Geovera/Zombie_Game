@@ -16,12 +16,14 @@ class ColliderComponent : public Component
 public:
   SDL_Rect collider;
   std::string tag;
+  bool active;
 
   TransformComponent* transform;
 
   ColliderComponent(std::string t)
   {
     tag = t;
+    active=true;
   }
   virtual ~ColliderComponent()
   {
@@ -39,12 +41,22 @@ public:
   }
   void update() override
   {
+    refreshA();
     collider.x = (int)transform->position.x;
     collider.y = (int)transform->position.y;
     collider.w = transform->width * transform->scale -180;
     collider.h = transform->height * transform->scale;
 
     Game::colliders.push_back(this);
+  }
+  void refreshA()
+  {
+    Game::colliders.erase(std::remove_if(std::begin(Game::colliders),std::end(Game::colliders),
+      [](ColliderComponent* mEntity)
+    {
+      return !mEntity ->active;
+    }),
+      std::end(Game::colliders));
   }
 
 };
