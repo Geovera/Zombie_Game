@@ -45,7 +45,7 @@ public:
   }
 
   virtual ~TransformComponent(){
-    std::cerr<<"Object is destroy"<<this<<std::endl;
+    std::cerr<<"TransformComponent destroy"<<this<<std::endl;
   }
 
   void init() override

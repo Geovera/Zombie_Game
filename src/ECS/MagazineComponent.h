@@ -18,13 +18,18 @@ public:
     currentIndex = 0;
     Clip();
   }
+  virtual ~MagazineComponent()
+  {
+    Magazine.clear();
+    std::cout<<"Magazine destroyed"<<std::endl;
+  }
 
   void Clip(){
     currentIndex=0;
     Magazine.clear();
     for(int i = 0; i <30; i++)
     {
-    int posX = entity->getComponent<TransformComponent>()->position.x;
+    int posX = entity->getComponent<TransformComponent>().position.x;
     Entity* Bullet(Game::manager.addEntity());
     Magazine.push_back(Bullet);
     Magazine[i]->addComponent<TransformComponent>(-5000.0f,200.0f);

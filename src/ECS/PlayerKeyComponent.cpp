@@ -4,10 +4,10 @@
 
 void PlayerKeyComponent::ShotBullets()
 {
-  entity->getComponent<MagazineComponent>()->Shots();
+  entity->getComponent<MagazineComponent>().Shots();
 }
 
 void PlayerKeyComponent::Flip(SDL_RendererFlip asd)
 {
-  entity->getComponent<SpriteComponent>()->flipType=asd;
+  entity->getComponent<SpriteComponent>().flipType=asd;
 }

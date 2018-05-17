@@ -51,6 +51,7 @@ public:
   virtual void draw() {}
 
   virtual ~Component(){
+    //delete entity;
     std::cerr<<"Component object is destroy"<<std::endl;
   }
 
@@ -74,6 +75,9 @@ public:
 
   virtual ~Entity()
   {
+    //delete manager;
+    for(auto& comp : components)
+      delete comp;
     std::cerr<<"Entity destroyed"<<std::endl;
   }
   void update()
@@ -111,10 +115,14 @@ public:
     c->init();
   }
 
-  template <class T> T* getComponent() const
+  template <class T> T& getComponent() const
   {
     //std::cerr<<"AdTrans: "<<componentArray[getComponentTypeID<T>()]<<std::endl;
-    return static_cast<T*>(componentArray[getComponentTypeID<T>()]);
+    T* asd= static_cast<T*>(componentArray[getComponentTypeID<T>()]);
+    T& dsa=*asd;
+    asd = NULL;
+    delete asd;
+    return dsa;
   }
 
 

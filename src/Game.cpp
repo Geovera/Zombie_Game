@@ -144,18 +144,21 @@ void Game::update()
 	zombieManager->refresh();
 	zombieManager->update();
 
-	//std::cerr<<"b1: "<<Player->getComponent<MagazineComponent>()->Magazine[0]->getComponent<ColliderComponent>()<<std::endl;
+	//std::cerr<<"b1: "<<Player->getComponent<MagazineComponent>().Magazine[0]->getComponent<ColliderComponent>()<<std::endl;
 
 	for(auto& cc : colliders){
-		if(Collision::AABB(*Player->getComponent<ColliderComponent>(), *cc))
+		if(Collision::AABB(Player->getComponent<ColliderComponent>(), *cc))
 		{
 			if(cc->tag=="zombie"){
-				cc->entity->getComponent<TransformComponent>()->position.x-=1;
-				Player->getComponent<HealthBarComponent>()->Hit(*this);
+				if((cc->entity->getComponent<SpriteComponent>().flipType=SDL_FLIP_NONE))
+					cc->entity->getComponent<TransformComponent>().position.x-=1;
+				else
+					cc->entity->getComponent<TransformComponent>().position.x+=1;
+				Player->getComponent<HealthBarComponent>().Hit(*this);
 			}
 		}
 	}
-	for(auto& bb : Player->getComponent<MagazineComponent>()->Magazine)
+	for(auto& bb : Player->getComponent<MagazineComponent>().Magazine)
 	{
 		//std::cerr<<"BB: "<<bb->getComponent<ColliderComponent>()<<std::endl;
 		for(auto cc : colliders)
@@ -163,7 +166,7 @@ void Game::update()
 			if(cc->tag!="zombie")
 				continue;
 			//std::cerr<<"Break0: "<<std::endl;
-			if(Collision::AABB(bb->getComponent<ColliderComponent>()->collider,cc->collider))
+			if(Collision::AABB(bb->getComponent<ColliderComponent>().collider,cc->collider))
 			{
 					cc->entity->destroy();
 					bb->destroy();
@@ -175,7 +178,7 @@ void Game::update()
 		}
 	}
 
-	//Player.getComponent<TransformComponent>()->scale=1;
+	//Player.getComponent<TransformComponent>().scale=1;
 /*Game::Mapa->dest.x =Player.getComponent<TransformComponent>().position.x *-4;
 	if(Game::Mapa->dest.x>0){
 		Game::Mapa->dest.x =0;

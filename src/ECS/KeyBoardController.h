@@ -13,9 +13,16 @@ class KeyBoardController : public Component
 public:
   TransformComponent* transform;
 
+  virtual ~KeyBoardController()
+  {
+    transform= NULL;
+    delete transform;
+    std::cout<<"KeyBoardController destroyed"<<std::endl;
+  }
+
   void init() override
   {
-    transform= entity->getComponent<TransformComponent>();
+    transform= &entity->getComponent<TransformComponent>();
   }
 
   void update() override

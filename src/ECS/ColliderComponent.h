@@ -25,6 +25,8 @@ public:
   }
   virtual ~ColliderComponent()
   {
+    transform = NULL;
+    delete transform;
     std::cerr<<"Collider destroy"<<std::endl;
   }
 
@@ -32,7 +34,7 @@ public:
   {
     if(!entity->hasComponent<TransformComponent>())
       entity->addComponent<TransformComponent>();
-    transform = entity->getComponent<TransformComponent>();
+    transform = &entity->getComponent<TransformComponent>();
 
   }
   void update() override

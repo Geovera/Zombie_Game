@@ -21,7 +21,7 @@ public:
     timePassed =0.0;
     zombieDelay = 1.0;
     currentIndex =0;
-    maxRound=1;
+    maxRound=2;
   }
   void startNewRound()
   {
@@ -51,26 +51,27 @@ public:
     //std::cout<<"X1: "<<posX + 3000<<std::endl;
     if(timePassed<zombieDelay)
       return;
-    int posX = Game::Map->getComponent<TransformComponent>()->position.x;
+    int posX = Game::Map->getComponent<TransformComponent>().position.x;
+    std::cout<<"Zombie Spawned"<<std::endl;
     if(currentIndex%2==0){
       //std::cout<<"Hello1: "<<currentIndex<<std::endl;
       //std::cout<<"Address: "<<zombies[currentIndex]<<std::endl;
       //std::cout<<"Map: "<<&Game::Map<<std::endl;
       //std::cout<<"NO"<<std::endl;
-      zombies[currentIndex]->getComponent<TransformComponent>()->rev=1;
-      zombies[currentIndex]->getComponent<TransformComponent>()->position.x=posX;
-      zombies[currentIndex]->getComponent<TransformComponent>()->position.y=200;
+      zombies[currentIndex]->getComponent<TransformComponent>().rev=1;
+      zombies[currentIndex]->getComponent<TransformComponent>().position.x=posX;
+      zombies[currentIndex]->getComponent<TransformComponent>().position.y=200;
 
       //std::cout<<"Hola1"<<std::endl;0
       //std::cerr<<"Image: "<<
-      zombies[currentIndex]->addComponent<SpriteComponent>("../images/Zombie-x256-2.png");
+      zombies[currentIndex]->addComponent<SpriteComponent>("../images/Zombie-x256-3.png",4,200);
       zombies[currentIndex]->addComponent<KeyBoardController>();
     }
     else{
-      zombies[currentIndex]->getComponent<TransformComponent>()->rev=1;
-      zombies[currentIndex]->getComponent<TransformComponent>()->position.x=posX+1500;
-      zombies[currentIndex]->getComponent<TransformComponent>()->position.y=200;
-      zombies[currentIndex]->addComponent<SpriteComponent>("../images/Zombie-x256-2.png", SDL_FLIP_HORIZONTAL);
+      zombies[currentIndex]->getComponent<TransformComponent>().rev=1;
+      zombies[currentIndex]->getComponent<TransformComponent>().position.x=posX+1500;
+      zombies[currentIndex]->getComponent<TransformComponent>().position.y=200;
+      zombies[currentIndex]->addComponent<SpriteComponent>("../images/Zombie-x256-3.png", 4,200, SDL_FLIP_HORIZONTAL);
       zombies[currentIndex]->addComponent<KeyBoardController>();
     }
     currentIndex++;
@@ -83,7 +84,7 @@ public:
   }
   void update()
   {
-    if(round==maxRound && roundOver)
+    if(round>maxRound)
         endGame();
     checkForZombies();
     if(roundOver)

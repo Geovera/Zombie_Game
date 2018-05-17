@@ -39,23 +39,25 @@ public:
 		m_rect = rect;
 		src_rect=rect;
 		green_rect=rect;
-		std::cout<<"DrawColor good"<<std::endl;
-		std::cout<<"FllRect good"<<std::endl;
-		std::cout<<"RenderPresent good"<<std::endl;
 		red=textureManager::loadTexture("../images/RedBar.png");
 		green=textureManager::loadTexture("../images/GreenBar.png");
 
 
 	}
+	virtual ~HealthBarComponent()
+	{
+		SDL_DestroyTexture(red);
+		SDL_DestroyTexture(green);
+		std::cout<<"HealthBar destroyed"<<std::endl;
+	}
 
 	void Hit(Game& game)
 	{
 		if(timePassed>hitDelay){
-			std::cerr<<"Helath:"<<health<<std::endl;
-			std::cerr<<"Width: "<<green_rect.w<<std::endl;
 			health-=0.25f;
 			green_rect.w=200*health;
 			timePassed=0.0f;
+			std::cerr<<"Health:"<<health*100.0f<<std::endl;
 			if(health==0.0f)
 				{
 					std::cerr<<"Game Over!"<<std::endl;

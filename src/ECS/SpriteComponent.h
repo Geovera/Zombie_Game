@@ -34,7 +34,7 @@ public:
 
 
     flipType=flipT;
-    std::cout<<path<<" : "<<flipType<<std::endl;
+    //std::cout<<path<<" : "<<flipType<<std::endl;
   }
   SpriteComponent(const char* path,int nFrames, int mSpeed, SDL_RendererFlip flipT= SDL_FLIP_NONE){
       //std::cerr<<"before transform: "<<entity->getComponent<TransformComponent>()<<std::endl;
@@ -49,12 +49,15 @@ public:
 
 
       flipType=flipT;
-      std::cout<<path<<" : "<<flipType<<std::endl;
+      //std::cout<<path<<" : "<<flipType<<std::endl;
     }
 
 
   virtual ~SpriteComponent(){
     SDL_DestroyTexture(texture);
+    transform = NULL;
+    delete transform;
+    std::cout<<"SpriteComponent destroyed"<<std::endl;
   }
 
   void setTex(const char* path)
@@ -64,7 +67,7 @@ public:
 
   void init() override
   {
-    transform = entity->getComponent<TransformComponent>();
+    transform = &entity->getComponent<TransformComponent>();
     srcRect.x = srcRect.y =0;
     //std::cerr<<"Transform w: "<<transform->width<<std::endl;
     //std::cerr<<"Begin: "<<&transform<<" : "<<path<<std::endl;

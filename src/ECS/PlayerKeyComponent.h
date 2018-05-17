@@ -16,6 +16,10 @@ public:
   {
     selfState = true;
   }
+  virtual ~PlayerKeyComponent()
+  {
+    std::cout<<"PlayerKeyComponent destroyed"<<std::endl;
+  }
   void ShotBullets();
   void Flip(SDL_RendererFlip asd);
 
