@@ -82,7 +82,7 @@ public:
   }
   void update()
   {
-    for(auto& c: components) c->update();
+    for(auto* c: components) c->update();
   }
   void draw(){
     for(auto& c: components) c->draw();
@@ -100,7 +100,6 @@ public:
 
   template <class T> bool hasComponent() const
   {
-    //long ID = (long)getComponentTypeID<T>-4206580;
     return componentBitSet[getComponentTypeID<T>()];
   }
 
@@ -117,7 +116,6 @@ public:
 
   template <class T> T& getComponent() const
   {
-    //std::cerr<<"AdTrans: "<<componentArray[getComponentTypeID<T>()]<<std::endl;
     T* asd= static_cast<T*>(componentArray[getComponentTypeID<T>()]);
     T& dsa=*asd;
     asd = NULL;
@@ -131,7 +129,6 @@ public:
 class Manager
 {
 private:
-  //std::vector<std::unique_ptr<Entity>> entities;
   std::array<std::vector<Entity*>, maxGroup > groupedEntities;
   std::vector<Entity*> entities;
 public:
@@ -139,7 +136,7 @@ public:
 
   void update()
   {
-    for(auto& e: entities ) e->update();
+    for(auto* e: entities ) e->update();
   }
   void draw()
   {
@@ -167,27 +164,18 @@ public:
   }
   void addToGroup(Entity* entity, Group gr)
   {
-    //std::cerr<<"orr: "<<entity<<std::endl;
     groupedEntities[gr].push_back(entity);
-    //std::cerr<<"ewuar: "<<&groupedEntities[gr]<<std::endl;
-    //for(auto asd : groupedEntities[gr])
-    //  std::cerr<<"asd"<<std::endl;
   }
 
   std::vector<Entity*>& getGroup(Group gr)
   {
-    //std::cerr<<"tu: "<<gr<<std::endl;
 
-    //std::cerr<<"ewwqe21uar: "<<&groupedEntities[gr]<<std::endl;
-    //std::cout<<"Nose: "<<groupedEntities[gr][0]<<std::endl;//<<" : "<<groupedEntities[gr][0]->player<<std::endl;
     return static_cast<std::vector<Entity*> & >(groupedEntities[gr]);
   }
 
   Entity* addEntity()
   {
     Entity* e = new Entity(this);
-    //std::unique_ptr<Entity> uPtr{e};
-    //entities.emplace_back(std::move(uPtr));
     entities.push_back(e);
     return e;
   }

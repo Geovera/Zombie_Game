@@ -13,7 +13,6 @@ public:
   Map();
   virtual ~Map();
 
-  //void LoadMap();
   void DrawMap();
 
   SDL_Rect src, dest;

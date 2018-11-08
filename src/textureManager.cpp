@@ -1,5 +1,4 @@
 #include "textureManager.h"
-//#include "leaker.h"
 
 SDL_Texture* textureManager::loadTexture(const char* path)
 {

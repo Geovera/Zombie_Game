@@ -12,6 +12,5 @@
 #include "ColliderComponent.h"
 #include "PlayerKeyComponent.h"
 #include "MagazineComponent.h"
-//#include "CameraComponent.h"
 
 #endif //COMPONENTS_H_

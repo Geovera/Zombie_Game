@@ -14,7 +14,6 @@
 #include "ECS/ECS.h"
 //#include "leaker.h"
 
-//#include <SDL2/SDL_image.h>
 
 class Map;
 class ColliderComponent;
@@ -44,8 +43,7 @@ public:
 	static Manager manager;
 	static Entity* Map;
 	static std::vector<ColliderComponent*>colliders;
-	//static int SCREEN_WITDH;
-	//static int SCREEN_HEIGHT;
+
 	void setRun(bool set){running = set;}
 
 	bool isRunning(){return running;}
@@ -57,7 +55,6 @@ private:
 	bool running;
 	int cnt;
 
-	//Map* mapa;
 	SDL_Window* window;
 	SDL_Texture* backgroundTex;
 };

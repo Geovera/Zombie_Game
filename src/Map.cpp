@@ -4,7 +4,7 @@
 
 Map::Map()
 {
-  background = textureManager::loadTexture("../images/BGZombieCC.png");
+  background = textureManager::loadTexture("images/BGZombieCC.png");
 
   src.x = src.y =0;
 

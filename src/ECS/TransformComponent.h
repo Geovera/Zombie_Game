@@ -39,9 +39,7 @@ public:
     height = Height;
 
 
-    //std::cout<<"Hello"<<std::endl;
     rev = direc;
-    //std::cout<<"Hola"<<std::endl;
   }
 
   virtual ~TransformComponent(){
@@ -50,7 +48,6 @@ public:
 
   void init() override
   {
-    //std::cout<<"Init: "<<std::endl;
     velocity.x =0;
     velocity.y =0;
   }

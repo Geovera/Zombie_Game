@@ -37,6 +37,7 @@ public:
     if(!entity->hasComponent<TransformComponent>())
       entity->addComponent<TransformComponent>();
     transform = &entity->getComponent<TransformComponent>();
+    Game::colliders.push_back(this);
 
   }
   void update() override
@@ -47,7 +48,7 @@ public:
     collider.w = transform->width * transform->scale -180;
     collider.h = transform->height * transform->scale;
 
-    Game::colliders.push_back(this);
+  //  Game::colliders.push_back(this);
   }
   void refreshA()
   {

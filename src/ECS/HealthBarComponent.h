@@ -24,7 +24,6 @@ private:
 	float hitDelay = 1.0f;
 	float timePassed = 0.0f;
 public:
-	//TransformComponent* transformHealth;
 	SDL_Rect src_rect, m_rect, green_rect;
 	SDL_Texture* red;
 	SDL_Texture* green;
@@ -39,8 +38,8 @@ public:
 		m_rect = rect;
 		src_rect=rect;
 		green_rect=rect;
-		red=textureManager::loadTexture("../images/RedBar.png");
-		green=textureManager::loadTexture("../images/GreenBar.png");
+		red=textureManager::loadTexture("images/RedBar.png");
+		green=textureManager::loadTexture("images/GreenBar.png");
 
 
 	}
@@ -76,26 +75,11 @@ public:
 	   return col;
 	}
 
-
-
-
-
-	/*void init() override
-	{
-		transformHealth = &entity->getComponent<TransformComponent>();
-		std::cout<<"good init"<<std::endl;
-	}*/
-
-	//if collision then change shape of rect to -25%
 	 void draw() override
 	 {
 		 textureManager::Draw(red,src_rect,m_rect, SDL_FLIP_NONE);
 		 textureManager::Draw(green,src_rect,green_rect, SDL_FLIP_NONE);
-		//HealthBarComponent(10,10,100,50, 1.0f,color(0,255,0,255), color(0,255,0,255) );
-		//SDL_RenderPresent(Game::renderer);
-		//SDL_SetRenderDrawColor(Game::renderer,255,0,0,0);
-		//std::cout<<"DrawColor good : "<<std::endl;
-		//SDL_RenderFillRect(Game::renderer,&m_rect);
+
 	 }
 
 
